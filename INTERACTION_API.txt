@@ -1,0 +1,63 @@
+Claude 网页设计参考 v2：独立编写的无依赖交互示例
+借鉴 Caho1/open-claude-ui 的交互模式（f4947c6），不是 Claude 官方实现；未复制上游函数源码。
+脚本本身无网络、模型或工具调用，所有示例均在本机运行。
+
+加载：<script src="interaction-examples.js"></script>，使用 globalThis.ClaudeRefV2。
+Node：const api = require('./interaction-examples.js')。
+浏览器需支持原生 dialog.showModal()；不支持时应使用成熟可访问性组件库，不退化为 div 模拟弹窗。
+
+1. createCompositionGuard({ now=Date.now, cooldownMs=50 }?)
+返回 { start(), end(), shouldSubmit(event, {value,disabled?,pending?,suggestionsOpen?}) }。
+start/end 绑定 compositionstart/compositionend。中文选字过程中、结束后50ms、isComposing、keyCode/which=229、长按重复事件、已被处理的事件、空输入、pending/disabled、建议菜单打开时均不发送。
+仅无修饰键 Enter 发送；Shift+Enter 留给原生换行。50ms 是本参考的实现建议，并非官方常数；仍须在目标浏览器实测真实输入法。
+
+2. findSuggestionTrigger(text, caret) => trigger|null
+trigger={sourceText,from,to,symbol,query}；索引使用 UTF-16（与 textarea.selectionStart 一致），范围为[from,to)。
+仅文本开头或空白之后的 @ 或 / 激活；email 内部 @ 不激活；只扫描光标之前。
+3. replaceSuggestion(text, trigger, replacement) => {text,caret}|null
+replacement 原样替换触发范围，后缀保留；要加空格请在 replacement 显式包含它。
+任何源文本变化、错误范围或触发文本不匹配都返回 null：重新运行 findSuggestionTrigger，再生成菜单。该纯函数没有当前DOM光标信息；点击建议前宿主还需确认 selectionStart===selectionEnd===trigger.to，光标已移动则重新检测或取消。
+接入时先关闭建议菜单，设置 textarea.value/selectionStart/selectionEnd，调用 composer.resize()。
+Escape 仅关闭菜单而不发送；上下键选项移动由 nextRovingIndex 管理，菜单消费的 keydown 必须 preventDefault。
+
+4. createScrollPinning({now=Date.now,cooldownMs=150,nearBottomPx=40,jumpThresholdPx=120,initiallyPinned=true}?)
+metrics={scrollTop,scrollHeight,clientHeight}，均为有限数值。
+返回：
+  onUserIntent('up'|'down') => state
+  onScroll(metrics,{source:'user'|'programmatic'}?) => state
+  onContentChange(metrics) => state
+  jumpToBottom() => state
+  getState(metrics?) => state
+state={pinned,shouldAutoScroll,showJumpButton,distanceToBottom,cooldownRemainingMs}。
+wheel向上/touch向上滚动意图/键盘向上翻阅时立即调用onUserIntent('up')，随后scroll用onScroll。
+用户向上滚动取消追尾；150ms冷却期后，用户滚回距底部<=40px才恢复。时间流逝或新增内容不会自行恢复追尾。
+新增内容后只在onContentChange(...).shouldAutoScroll时设置scrollTop=scrollHeight。应用发起的scroll必须传source:'programmatic'，否则不能区分它与用户滚动。
+showJumpButton在离底>120px时显示。点击“回到底部”先jumpToBottom，再实际滚动并以programmatic上报。
+这些阈值是第三方模式经修订后的本参考默认值。状态机不绑定DOM，需由使用方接线；触屏滚动、快速流式输出、滚动容器缩放必须实测。
+
+5. nextRovingIndex(index,key,{count,orientation='horizontal',columns=1,rtl=false,loop=true}) => number
+orientation为horizontal、vertical或grid。Home/End定位整个集合的首/末项。
+grid上下键按columns移动并在同列绕回，左右键在当前行绕回，支持最后一行不满。rtl仅反转左右方向，不改变上下。
+count<=0返回-1；index=-1时前向进入0、后向进入末项。调用方负责focus()及唯一tabindex=0，其余为-1。
+仅把可用项传给此函数；跳过disabled项应先建立可用索引映射。不要给普通链接列表未经考虑就加roving tabindex。
+
+6. bindComposer(textarea,onSubmit,{minHeight=48,maxHeight=240,now?,cooldownMs=50,suggestionsOpen?:()=>boolean,onError?}?)
+onSubmit(text)可同步或异步；返回false保留草稿，其他成功返回清空原草稿。提交期间防重复；用户期间新写的内容不被清除。
+返回 { submit():Promise<boolean>,resize(),isPending(),dispose() }。
+自动绑定composition/keydown/input，自动高度，Shift+Enter原生换行；aria-busy表示异步提交状态。
+发送按钮调用submit()。此方法也拒绝输入法组合/结束冷却期、空白、disabled、readOnly及重复提交；非空内容保留原本的前后空格和换行。
+onError接收失败；未设置时派发冒泡composererror CustomEvent（detail为错误）。宿主应呈现可读的失败提示，允许重试。
+dispose移除监听、恢复style和aria-busy；调用后尚未完成的请求不再改DOM，但不取消宿主请求。
+注意：脚本内没有后端。onSubmit决定数据去向，示例只做本地展示。
+
+7. bindDialog(dialog,{initialFocus?:selector|HTMLElement,onClose?}?)
+必须是原生<dialog>，具有aria-label或指向非空文本的aria-labelledby，否则立即报错。
+返回 { showModal():boolean,close(returnValue?),dispose() }。
+原生showModal负责模态、背景inert和Escape；绑定提供显式Tab边界兜底，并负责初始焦点、关闭后恢复触发点、监听销毁。
+弹窗打开时，每次Tab都重新收集可见、enabled、tabIndex>=0且不在hidden/inert子树的控件；末项Tab到首项，首项Shift+Tab到末项，焦点不在列表则按方向接回。无控件则聚焦dialog。dispose同步移除keydown监听。使用DOM顺序和tabindex=0/-1，避免正数tabindex。
+initialFocus优先使用安全操作（例如“取消”）；否则先独立查找有效autofocus，再回退首个可见且可用的原生可聚焦项，无可聚焦项时聚焦dialog。autofocus优先级不受普通按钮的DOM顺序影响。
+onClose接收dialog.returnValue。关闭按钮可调用close('cancel')，或使用form method="dialog"。
+不绑定“点击外部关闭”，防止误关包含未保存输入的弹窗。关闭后触发点已删除时不强行聚焦其他元素。
+
+验证：node interaction-tests.cjs。
+Node 测试覆盖纯状态逻辑；不能证明浏览器的实际输入法、焦点限制、触屏滚动或自动高度表现。

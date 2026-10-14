@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-15",
+  "pure_state_tests": {
+    "passed": true,
+    "log": "TEST_RESULTS.txt"
+  },
+  "browser_checks": {
+    "status": "passed_with_explicit_limits",
+    "browser": "Codex in-app browser",
+    "desktop_width": 1280,
+    "mobile_width": 390,
+    "checks": [
+      {
+        "name": "light/comfortable default",
+        "result": "pass",
+        "button_height_px": 36
+      },
+      {
+        "name": "dark/compact switch",
+        "result": "pass",
+        "button_height_px": 32,
+        "background": "rgb(20,20,19)",
+        "accent": "rgb(223,156,130)"
+      },
+      {
+        "name": "mobile layout",
+        "result": "pass",
+        "viewport_px": 390,
+        "scroll_width_px": 390,
+        "button_height_px": 44,
+        "input_height_px": 44
+      },
+      {
+        "name": "dialog initial focus/Tab/Shift+Tab/Escape/restore",
+        "result": "pass",
+        "sequence": [
+          "cancel-dialog",
+          "confirm-dialog",
+          "cancel-dialog",
+          "confirm-dialog",
+          "open-dialog"
+        ]
+      },
+      {
+        "name": "Enter send vs Shift+Enter newline",
+        "result": "pass",
+        "multiline_draft_preserved_before_submit": true,
+        "message_count_before": 2,
+        "message_count_after": 4,
+        "cleared_after_submit": true
+      },
+      {
+        "name": "mid-sentence replacement",
+        "result": "pass",
+        "value": "请检查 [设计资料] 的计划"
+      },
+      {
+        "name": "roving backward wrap",
+        "result": "pass",
+        "active": "网格",
+        "tab_indexes": [
+          -1,
+          -1,
+          0
+        ]
+      },
+      {
+        "name": "stream respects reading",
+        "result": "pass",
+        "before": {
+          "segments": 32,
+          "height": 1350,
+          "scrollTop": 0
+        },
+        "after": {
+          "segments": 48,
+          "height": 2009,
+          "scrollTop": 0
+        },
+        "jump_distance_px": -0.5
+      },
+      {
+        "name": "container-responsive toolbar",
+        "result": "pass",
+        "container_width_px": 154.6953125,
+        "visible_action_buttons": 2,
+        "page_overflow": false
+      },
+      {
+        "name": "download mechanism",
+        "result": "pass",
+        "downloaded_bytes_equal_generated_file_at_test_time": true
+      },
+      {
+        "name": "console errors",
+        "result": "pass",
+        "captured_errors": 0
+      }
+    ],
+    "jev": {
+      "decisions": 8,
+      "executed_actions": 4,
+      "purpose": "theme/density/modal open/start local streaming",
+      "handoffs": "Codex verified outcomes and completed deterministic keyboard and fallback actions"
+    },
+    "not_covered": [
+      "真实操作系统IME输入法，仅组合事件逻辑测试",
+      "屏幕阅读器读出",
+      "真实触屏手势",
+      "不同浏览器完整矩阵",
+      "生产网络/模型/上传",
+      "完整分栏组件"
+    ],
+    "contrast_pairs": [
+      {
+        "pair": "accent-light",
+        "ratio": 5.716
+      },
+      {
+        "pair": "accent-dark",
+        "ratio": 8.089
+      },
+      {
+        "pair": "primary-light",
+        "ratio": 18.434
+      },
+      {
+        "pair": "primary-dark",
+        "ratio": 17.498
+      }
+    ]
+  },
+  "limits": [
+    "真实系统IME、屏幕阅读器和触屏行为未自动验证",
+    "第三方完整组件库未安装或整体运行",
+    "8个原Figma变量仍部分/全部主题待核对"
+  ]
+}

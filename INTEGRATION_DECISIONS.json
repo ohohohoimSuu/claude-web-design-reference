@@ -1,0 +1,87 @@
+[
+  {
+    "title": "保留色彩基础",
+    "upstream_summary": "上游桌面表面 #F5F5F3 / #0B0B0A 与 Figma 不同",
+    "adopted": "保留原37个语义色登记和8个待核对项；采用Figma主题",
+    "provenance": "canvas_annotation",
+    "source": "https://www.figma.com/design/RBi8VghMgGaJoJuNCbe2s6/MCP-Apps-for-Claude--Community-?node-id=467-20292",
+    "upstream_source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/cds-theme.css#L6-L26"
+  },
+  {
+    "title": "主按钮与强调色",
+    "upstream_summary": "上游 primary 是 #D97757 配白字，约3.12:1",
+    "adopted": "primary近黑；accent浅色 #A64B32/白，深色 #DF9C82/#141413",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/CdsButton.tsx#L24-L47"
+  },
+  {
+    "title": "两档密度",
+    "upstream_summary": "上游按钮24/28/32/40px",
+    "adopted": "普通36/小32；紧凑32/小28；手机或粗指针44px",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/CdsButton.tsx#L24-L29"
+  },
+  {
+    "title": "语义圆角",
+    "upstream_summary": "上游附件10、代码12、弹窗16、消息18、输入区20",
+    "adopted": "保留通用圆角；新增上述角色圆角，普通卡片仍12px",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/cds-theme.css#L68-L78"
+  },
+  {
+    "title": "字体与数字",
+    "upstream_summary": "系统回退栈、紧凑正文和动态数字",
+    "adopted": "保留中文回退和16px阅读正文；辅助UI可13px；数字tabular-nums",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/tailwind.config.js#L27-L52"
+  },
+  {
+    "title": "边框和阴影",
+    "upstream_summary": "secondary无边框；rest/hover/focus/popover层级",
+    "adopted": "新增secondary/ghost；普通卡片轻边界，浮层才使用分级阴影",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/cds-theme.css#L29-L53"
+  },
+  {
+    "title": "容器适配",
+    "upstream_summary": "组件按容器宽度压缩",
+    "adopted": "480px隐藏可选快捷键、384px标题换行；主要操作仍保留",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/ContainerResponsiveBar.tsx#L15-L45"
+  },
+  {
+    "title": "输入与候选",
+    "upstream_summary": "富输入框有IME保护，但基础输入框缺失；句中替换有问题",
+    "adopted": "独立统一守卫；按光标范围替换；拒绝过期范围",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/RichComposerWithMentions.tsx#L108-L201"
+  },
+  {
+    "title": "流式阅读",
+    "upstream_summary": "40px底部容差 / 120px提示 / 150ms冷却",
+    "adopted": "可配置状态机；向上阅读释放追尾，显式跳转恢复",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/useClaudeScrollPinning.ts#L14-L70"
+  },
+  {
+    "title": "弹窗与焦点",
+    "upstream_summary": "原弹窗缺少完整焦点行为；roving有负索引边界问题",
+    "adopted": "原生dialog绑定；修正索引回绕与grid列步长",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/ConfirmationDialog.tsx#L39-L104"
+  },
+  {
+    "title": "动效",
+    "upstream_summary": "上游文档与spring源码参数不一致",
+    "adopted": "统一120/180/240ms建议值；CSS与JS兼顾减弱动效；不引入spring依赖",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/code-examples/ClaudeMotionPresets.ts#L57-L99"
+  },
+  {
+    "title": "按需扩展范围",
+    "upstream_summary": "包含Electron、音频、iframe等桌面模块",
+    "adopted": "通用包不引入这些依赖；分栏只收验收规则，未附未验证组件",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/src/index.ts#L27-L45"
+  }
+]

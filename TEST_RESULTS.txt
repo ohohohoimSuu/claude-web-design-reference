@@ -1,0 +1,13 @@
+PASS IME composition and post-composition Enter are blocked
+PASS empty, repeated, pending, modified and consumed Enter never submits
+PASS mid-sentence mention replacement keeps the complete suffix and caret
+PASS suggestion boundaries reject emails, invalid carets and stale offsets
+PASS user upward scrolling releases pinning even within the bottom threshold
+PASS cooldown expiration alone does not steal user scroll position
+PASS jump visibility and pinning use strict 120px and inclusive 40px boundaries
+PASS roving handles no selection, empty groups, wrapping, Home and End
+PASS grid respects column stride, incomplete rows, same-row wrapping and RTL
+PASS DOM bindings fail clearly without appropriate native elements
+PASS dialog initial-focus selection prioritizes visible autofocus over earlier buttons
+
+11 state/selection contract tests passed. DOM focus and layout require real-browser verification.

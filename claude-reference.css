@@ -1,0 +1,274 @@
+/* Claude web reference v2.0 · Figma 2026-10-14 / integration 2026-10-15
+ * Source: MCP Apps for Claude Community UI kit v1.1.
+ * Color values: visible canvas annotations, not Figma API values.
+ * --ref-* sizes, spacing, layout and component aliases are recommendations.
+ * Conflicting source annotations are quarantined in tokens.json.
+ * No font binaries, Claude logos, production CSS or runtime SDK included.
+ */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f4ed;
+  --color-background-tertiary: #faf9f5;
+  --color-background-inverse: #141413;
+  --color-background-ghost: rgb(255 255 255 / 0);
+  --color-background-disabled: rgb(255 255 255 / .5);
+  --color-text-primary: #141413;
+  --color-text-secondary: #3d3d3a;
+  --color-text-tertiary: #73726c;
+  --color-text-inverse: #ffffff;
+  --color-text-ghost: rgb(115 114 108 / .5);
+  --color-text-info: #3266ad;
+  --color-text-danger: #7f2c28;
+  --color-text-success: #275b19;
+  --color-text-warning: #5a4815;
+  --color-border-primary: rgb(31 30 29 / .4);
+  --color-border-secondary: rgb(31 30 29 / .3);
+  --color-border-tertiary: rgb(31 30 29 / .15);
+  --color-border-inverse: rgb(255 255 255 / .3);
+  --color-border-ghost: rgb(31 30 29 / 0);
+  --color-border-info: #4682d5;
+  --color-border-danger: #a73339;
+  --color-border-success: #437426;
+  --color-border-warning: #805c1f;
+  --color-border-disabled: rgb(31 30 29 / .1);
+  --color-ring-primary: rgb(20 20 19 / .7);
+  --color-ring-secondary: rgb(61 61 58 / .7);
+  --color-ring-inverse: rgb(255 255 255 / .7);
+  --color-ring-info: rgb(50 102 173 / .5);
+  --color-ring-danger: rgb(167 61 57 / .5);
+  --color-ring-success: rgb(67 116 38 / .5);
+  --color-ring-warning: rgb(128 92 31 / .5);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-background-primary: #30302e;
+  --color-background-secondary: #262624;
+  --color-background-tertiary: #141413;
+  --color-background-inverse: #faf9f5;
+  --color-background-ghost: rgb(48 48 46 / 0);
+  --color-background-disabled: rgb(48 48 46 / .5);
+  --color-text-primary: #faf9f5;
+  --color-text-secondary: #c2c0b6;
+  --color-text-tertiary: #9c9a92;
+  --color-text-inverse: #141413;
+  --color-text-ghost: rgb(156 154 146 / .5);
+  --color-text-info: #80aadd;
+  --color-text-danger: #ee8884;
+  --color-text-success: #7ab948;
+  --color-text-warning: #d1a041;
+  --color-border-primary: rgb(222 220 209 / .4);
+  --color-border-secondary: rgb(222 220 209 / .3);
+  --color-border-tertiary: rgb(222 220 209 / .15);
+  --color-border-inverse: rgb(20 20 19 / .15);
+  --color-border-ghost: rgb(222 220 209 / 0);
+  --color-border-info: #4682d5;
+  --color-border-danger: #cd5c58;
+  --color-border-disabled: rgb(222 220 219 / .1);
+  --color-ring-primary: rgb(250 249 245 / .7);
+  --color-ring-inverse: rgb(20 20 19 / .7);
+  --color-ring-info: rgb(128 170 221 / .5);
+  --color-ring-danger: rgb(205 92 88 / .5);
+  --color-ring-success: rgb(89 145 48 / .5);
+  --color-ring-warning: rgb(168 120 41 / .5);
+  --color-border-success: initial; /* unresolved source value */
+  --color-border-warning: initial; /* unresolved source value */
+  --color-ring-secondary: initial; /* unresolved source value */
+}
+
+/* Implementation recommendations below. */
+:root {
+  --font-sans: "Anthropic Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: "Anthropic Serif", Georgia, "Songti SC", serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-weight-normal: 400; --font-weight-medium: 500;
+  --font-weight-semibold: 600; --font-weight-bold: 700;
+  --ref-space-4: 4px;
+  --ref-space-8: 8px;
+  --ref-space-12: 12px;
+  --ref-space-16: 16px;
+  --ref-space-24: 24px;
+  --ref-space-32: 32px;
+  --ref-space-48: 48px;
+  --ref-space-64: 64px;
+  --ref-radius-xs: 4px;
+  --ref-radius-sm: 6px;
+  --ref-radius-md: 8px;
+  --ref-radius-lg: 12px;
+  --ref-radius-xl: 16px;
+  --ref-radius-full: 9999px;
+  --ref-text-xs-size: 12px; --ref-text-xs-leading: 18px;
+  --ref-text-sm-size: 14px; --ref-text-sm-leading: 20px;
+  --ref-text-md-size: 16px; --ref-text-md-leading: 24px;
+  --ref-text-lg-size: 18px; --ref-text-lg-leading: 28px;
+  --ref-heading-xs-size: 14px; --ref-heading-xs-leading: 20px;
+  --ref-heading-sm-size: 16px; --ref-heading-sm-leading: 24px;
+  --ref-heading-md-size: 18px; --ref-heading-md-leading: 26px;
+  --ref-heading-lg-size: 20px; --ref-heading-lg-leading: 28px;
+  --ref-heading-xl-size: 24px; --ref-heading-xl-leading: 32px;
+  --ref-heading-2xl-size: 30px; --ref-heading-2xl-leading: 38px;
+  --ref-heading-3xl-size: 36px; --ref-heading-3xl-leading: 44px;
+  --ref-sidebar-width: 248px; --ref-rail-width: 56px;
+  --ref-chat-max-width: 760px; --ref-workspace-max-width: 1120px;
+  --ref-page-padding: 32px; --ref-control-height: 40px;
+  --ref-shadow: 0 1px 3px rgb(20 20 19 / .08);
+  --ref-motion: 120ms;
+}
+.claude-ref { font-family: var(--font-sans); color: var(--color-text-primary); background: var(--color-background-tertiary); line-height: 1.5; }
+.claude-ref *, .claude-ref *::before, .claude-ref *::after { box-sizing: border-box; }
+.cr-btn, .cr-icon-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 7px 14px; border: 1px solid var(--color-border-tertiary); border-radius: var(--ref-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); font: 500 14px/20px var(--font-sans); cursor: pointer; text-decoration: none; transition: background-color var(--ref-motion), border-color var(--ref-motion); }
+.cr-btn--primary { background: var(--color-background-inverse); color: var(--color-text-inverse); border-color: transparent; }
+.cr-btn--danger { background: #a73339; color: #fff; border-color: transparent; } /* recommendation derived from annotated border-danger; source danger-fill unresolved */
+.cr-btn--small { min-height: 32px; padding: 5px 10px; }
+.cr-icon-btn { width: 36px; padding: 7px; background: transparent; }
+.cr-btn:hover:not(:disabled), .cr-icon-btn:hover:not(:disabled) { filter: brightness(.95); }
+.cr-btn:disabled, .cr-icon-btn:disabled { opacity: .45; cursor: not-allowed; }
+.cr-btn:focus-visible, .cr-icon-btn:focus-visible, .cr-input:focus-visible, .cr-textarea:focus-visible, .cr-nav-link:focus-visible { outline: 2px solid var(--color-ring-primary); outline-offset: 2px; }
+.cr-input, .cr-textarea { display: block; width: 100%; min-height: var(--ref-control-height); padding: 9px 12px; border: 1px solid var(--color-border-tertiary); border-radius: var(--ref-radius-md); color: var(--color-text-primary); background: var(--color-background-primary); font: 400 16px/22px var(--font-sans); }
+.cr-input::placeholder, .cr-textarea::placeholder { color: var(--color-text-tertiary); }
+.cr-input:disabled, .cr-textarea:disabled { opacity: .45; cursor: not-allowed; }
+.cr-input[aria-invalid="true"] { border-color: var(--color-border-danger); }
+.cr-textarea { min-height: 120px; resize: vertical; }
+.cr-field { display: grid; gap: 8px; }
+.cr-field label { font-size: 14px; font-weight: 500; }
+.cr-help { margin: 0; color: var(--color-text-secondary); font-size: 12px; }
+.cr-error { color: var(--color-text-danger); }
+.cr-check, .cr-radio { accent-color: var(--color-border-info); width: 16px; height: 16px; vertical-align: middle; }
+.cr-switch { appearance: none; width: 36px; height: 20px; border-radius: 999px; border: 1px solid var(--color-border-secondary); background: var(--color-background-secondary); position: relative; vertical-align: middle; cursor: pointer; }
+.cr-switch::before { content: ""; position: absolute; width: 14px; height: 14px; left: 2px; top: 2px; border-radius: 50%; background: var(--color-text-tertiary); transition: transform var(--ref-motion); }
+.cr-switch:checked { background: var(--color-border-info); border-color: var(--color-border-info); }
+.cr-switch:checked::before { background: #fff; transform: translateX(16px); }
+.cr-switch:focus-visible, .cr-check:focus-visible, .cr-radio:focus-visible { outline: 2px solid var(--color-ring-info); outline-offset: 3px; }
+.cr-switch:disabled, .cr-check:disabled, .cr-radio:disabled { opacity: .45; cursor: not-allowed; }
+.cr-card { padding: 16px; background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--ref-radius-lg); }
+.cr-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--color-border-tertiary); font-size: 14px; font-weight: 500; }
+.cr-nav { background: var(--color-background-secondary); padding: 12px; }
+.cr-nav-link { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-radius: var(--ref-radius-sm); color: var(--color-text-secondary); text-decoration: none; font-size: 14px; }
+.cr-nav-link[aria-current="page"], .cr-nav-link:hover { background: var(--color-background-primary); color: var(--color-text-primary); }
+.cr-shell { display: grid; grid-template-columns: var(--ref-sidebar-width) minmax(0,1fr); min-height: 100dvh; }
+.cr-main { min-width: 0; padding: var(--ref-page-padding); }
+.cr-reading { max-width: var(--ref-chat-max-width); margin-inline: auto; }
+.cr-workspace { max-width: var(--ref-workspace-max-width); margin-inline: auto; }
+.cr-message { margin-block: 24px; font-size: 16px; line-height: 1.7; }
+.cr-message--user { margin-left: auto; max-width: 85%; width: fit-content; padding: 10px 14px; background: var(--color-background-secondary); border-radius: var(--ref-radius-lg); font: 400 14px/22px var(--font-sans); }
+.cr-message--assistant { font-family: var(--font-serif); }
+.cr-composer { padding: 16px; border: 1px solid var(--color-border-tertiary); border-radius: var(--ref-radius-xl); background: var(--color-background-primary); box-shadow: var(--ref-shadow); }
+.cr-composer textarea { width: 100%; min-height: 64px; border: none; background: transparent; resize: vertical; color: var(--color-text-primary); font: 400 16px/24px var(--font-sans); }
+.cr-composer textarea:focus-visible { outline: 2px solid var(--color-ring-primary); outline-offset: 3px; border-radius: 4px; }
+.cr-composer-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; }
+.cr-send { background: var(--ref-brand-accent); color: white; border-color: transparent; }
+.cr-skeleton { height: 16px; background: var(--color-background-secondary); border-radius: 6px; }
+@media (max-width: 900px) { .cr-shell { grid-template-columns: 1fr; } .cr-shell > .cr-nav { display: none; } /* Provide an accessible menu trigger in your app. */ }
+@media (max-width: 640px) { .cr-main { padding: 16px; } .cr-btn, .cr-icon-btn { min-height: 44px; } .cr-icon-btn { width: 44px; } .cr-message--user { max-width: 92%; } }
+@media (prefers-reduced-motion: reduce) { .claude-ref *, .claude-ref *::before { transition: none !important; animation: none !important; } }
+
+/* v2 additions. Values below are project recommendations unless marked upstream.
+ * Upstream: Caho1/open-claude-ui @ f4947c62a459f6413ed44b289a8d495962add1a2.
+ * Existing --color-* annotations and quarantine are preserved.
+ */
+:root, [data-theme="light"] {
+  --ref-accent-decorative: #d97757; /* upstream_code: cds-theme.css */
+  --ref-accent-readable: #a64b32;
+  --ref-on-accent-readable: #fff;
+  --ref-brand-accent: var(--ref-accent-readable);
+  --ref-shadow-rest: 0 1px 3px rgb(20 20 19 / .08);
+  --ref-shadow-raised: 0 2px 4px rgb(20 20 19 / .05), 0 6px 16px rgb(20 20 19 / .08);
+  --ref-shadow-popover: 0 8px 24px rgb(20 20 19 / .12), 0 0 0 1px var(--color-border-tertiary);
+  --ref-shadow: var(--ref-shadow-rest);
+}
+[data-theme="dark"] {
+  --ref-accent-readable: #df9c82;
+  --ref-on-accent-readable: #141413;
+  --ref-brand-accent: var(--ref-accent-readable);
+  --ref-shadow-rest: 0 1px 3px rgb(0 0 0 / .24);
+  --ref-shadow-raised: 0 2px 4px rgb(0 0 0 / .2), 0 6px 16px rgb(0 0 0 / .3);
+  --ref-shadow-popover: 0 8px 24px rgb(0 0 0 / .4), 0 0 0 1px var(--color-border-tertiary);
+  --ref-shadow: var(--ref-shadow-rest);
+}
+:root, [data-density="comfortable"] {
+  --ref-button-height: 36px;
+  --ref-button-small-height: 32px;
+  --ref-control-height: 40px;
+  --ref-control-gap: 8px;
+  --ref-card-padding: 16px;
+  --ref-composer-padding: 16px;
+  --ref-page-padding: 32px;
+  --ref-ui-size: 14px;
+}
+[data-density="compact"] {
+  --ref-button-height: 32px;
+  --ref-button-small-height: 28px;
+  --ref-control-height: 36px;
+  --ref-control-gap: 6px;
+  --ref-card-padding: 14px;
+  --ref-composer-padding: 14px;
+  --ref-page-padding: 24px;
+  --ref-ui-size: 13px;
+}
+:root {
+  --ref-space-2: 2px; --ref-space-6: 6px; --ref-space-10: 10px;
+  --ref-space-14: 14px; --ref-space-20: 20px;
+  --ref-radius-control: 8px;
+  --ref-radius-attachment: 10px;
+  --ref-radius-card: 12px;
+  --ref-radius-code: 12px;
+  --ref-radius-dialog: 16px;
+  --ref-radius-message: 18px;
+  --ref-radius-composer: 20px;
+  --ref-motion-fast: 120ms;
+  --ref-motion-standard: 180ms;
+  --ref-motion-panel: 240ms;
+  --ref-ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+.cr-btn, .cr-icon-btn {
+  min-height: var(--ref-button-height);
+  gap: var(--ref-control-gap);
+  padding-block: 4px;
+  border-radius: var(--ref-radius-control);
+  font-size: var(--ref-ui-size);
+  transition: background-color var(--ref-motion-fast) var(--ref-ease-out), border-color var(--ref-motion-fast) var(--ref-ease-out);
+}
+.cr-btn--small { min-height: var(--ref-button-small-height); padding: 2px 10px; }
+.claude-ref [hidden] { display:none !important; }
+.cr-btn--micro { min-height: 24px; padding: 2px 8px; font-size: 12px; line-height: 18px; border-radius: 6px; }
+.cr-btn--secondary { border-color: transparent; background: var(--color-background-secondary); }
+.cr-btn--ghost { border-color: transparent; background: transparent; }
+.cr-btn--ghost:hover:not(:disabled) { background: var(--color-background-secondary); }
+.cr-btn--accent, .cr-send { background: var(--ref-accent-readable); color: var(--ref-on-accent-readable); border-color: transparent; }
+.cr-icon-btn { width: var(--ref-button-height); padding: 4px; }
+.cr-input { height: var(--ref-control-height); min-height: var(--ref-control-height); padding-block: 4px; }
+.cr-card { border-radius: var(--ref-radius-card); padding: var(--ref-card-padding); }
+.cr-composer { border-radius: var(--ref-radius-composer); padding: var(--ref-composer-padding); }
+.cr-composer:focus-within { border-color: var(--color-border-secondary); box-shadow: var(--ref-shadow-rest); }
+.cr-message--user { border-radius: var(--ref-radius-message); }
+.cr-number { font-variant-numeric: tabular-nums; }
+.cr-toolbar-container { container-type: inline-size; container-name: cr-toolbar; }
+.cr-toolbar { display:flex; align-items:center; gap:var(--ref-control-gap); min-width:0; flex-wrap:wrap; }
+.cr-toolbar-title { min-width:0; flex:1 1 120px; overflow-wrap:anywhere; }
+.cr-toolbar kbd { font: 12px var(--font-mono); color: var(--color-text-secondary); }
+@container cr-toolbar (max-width: 480px) { .cr-toolbar .cr-optional-shortcut { display:none; } }
+@container cr-toolbar (max-width: 384px) {
+  .cr-toolbar { gap:6px; }
+  .cr-toolbar .cr-toolbar-title { flex-basis:100%; }
+  .cr-toolbar .cr-btn { flex:1 1 auto; }
+}
+.cr-dialog { box-sizing:border-box; width:min(440px, calc(100% - 32px)); max-height:calc(100dvh - 32px); overflow:auto; color:var(--color-text-primary); background:var(--color-background-primary); border:1px solid var(--color-border-tertiary); padding:24px; border-radius:var(--ref-radius-dialog); box-shadow:var(--ref-shadow-popover); }
+.cr-dialog::backdrop { background:rgb(20 20 19 / .45); }
+.cr-dialog-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:24px; }
+.cr-dialog h2 { margin:0 0 12px; font:600 20px/28px var(--font-sans); }
+.cr-dialog p { font-size:14px; line-height:1.7; }
+.cr-field-error { font-size:12px; color:var(--color-text-danger); }
+.cr-roving { display:flex; gap:8px; flex-wrap:wrap; }
+.cr-roving [aria-pressed="true"] { background:var(--color-background-inverse); color:var(--color-text-inverse); }
+@media (max-width:640px), (pointer:coarse) {
+  .cr-btn, .cr-btn--small, .cr-btn--micro, .cr-icon-btn { min-height:44px; }
+  .cr-icon-btn { width:44px; }
+  .cr-input { min-height:44px; }
+  .cr-main { padding:16px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  :root { --ref-motion-fast:0ms; --ref-motion-standard:0ms; --ref-motion-panel:0ms; }
+  html { scroll-behavior:auto !important; }
+  .claude-ref *, .claude-ref *::before, .claude-ref *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
