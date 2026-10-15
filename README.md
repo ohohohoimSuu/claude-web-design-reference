@@ -58,15 +58,15 @@ v3 将实际运行并经使用者认可的聊天界面作为默认起点：暖�
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-然后打开 **http://127.0.0.1:8080/examples/claude-chat/**。不需要 `npm install`，也不需要 API Key。
+然后打开 [本地聊天实例](http://127.0.0.1:8080/examples/claude-chat/)。不需要 `npm install`，也不需要 API Key。
 
 只需复制整个 [`examples/claude-chat/`](./examples/claude-chat/) 目录，就能作为独立静态项目继续开发。`index.html` 与 `assets/` 是可编辑源码；`standalone.html` 是生成的便携版。
 
 ## 交给 Agent
 
-**能读取仓库：**让 Agent 先读 [AGENTS.md](./AGENTS.md)。它会找到已认可的实例、准确的文件职责、两套参考的适用范围和验证方法，不依赖某一家 Agent 的专用接口。
+**能读取仓库的 Agent**：先读 [AGENTS.md](./AGENTS.md)。它会找到已认可的实例、准确的文件职责、两套参考的适用范围和验证方法，不依赖某一家 Agent 的专用接口。
 
-**只能发一个附件：**下载 **[Claude网页设计参考_v3_Agent.md](./Claude网页设计参考_v3_Agent.md)**。它先解释如何使用，再给出设计规则、接入位置和完整的文本源码，可独立重建界面。二进制字体不塞进文本上下文；要与截图使用同一套 Inter，复制示例里的 `assets/fonts/`。没有字体文件时可用系统回退。
+**只能发一个附件时**：下载 **[Claude网页设计参考_v3_Agent.md](./Claude网页设计参考_v3_Agent.md)**。它先解释如何使用，再给出设计规则、接入位置和完整的文本源码，可独立重建界面。二进制字体不塞进文本上下文；要与截图使用同一套 Inter，复制示例里的 `assets/fonts/`。没有字体文件时可用系统回退。
 
 可以直接复制这段任务说明：
 
