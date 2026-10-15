@@ -35,6 +35,10 @@
     "source-ui-app.png": "385e43b9ab33bc9a4534f0a40a493b18659d72e03840369ccd38ba5aed29bcfa",
     "source-ui-chat.png": "30d609209bd99bd38f7eb08f55bb0dfed5506ea7de9858e50e3ae59b1c08e7ee",
     "source-ui-overview.png": "f03cc4b7bf38375505191db4774f73270505010f56775476a2ccc49a049d005a",
-    "tokens.json": "1fa4e9bb88ff59b16108204775c7bdcb0d729eb59344f922acada3d45b64d8ba"
+    "tokens.json": "1fa4e9bb88ff59b16108204775c7bdcb0d729eb59344f922acada3d45b64d8ba",
+    "README.md": "8184400da2b68624fc52dce4837dda6d2cbf677e093a66f9b68d571b310a5238",
+    "AGENTS.md": "9145335213fa775c6a069d0e38c5d6959affd215cb1e4c067ed0190df657c518",
+    "assets/readme-components.jpg": "881894c0d5d367a37d597f700740663c7a45a6f99af158312566d8ff3e988d8b",
+    "assets/readme-chat-dark.jpg": "d2812613d5ed140f329b2d9b594160e32b8cb78d53da9c8bbf7e55192c8b9d28"
   }
 }
