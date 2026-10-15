@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Claude 风格的完整聊天界面交互示例。会话、模型菜单、附件、思考过程、消息与深色主题。"><meta name="theme-color" content="#faf9f6"><title>Claude UI Demo</title><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="assets/fonts.css"><link rel="stylesheet" href="assets/reference.css"><link rel="stylesheet" href="assets/chat.css"></head>
+<body>
+<a class="skip" href="#main-content">跳到聊天内容</a>
+<div class="app" id="app">
+  <button id="nav-scrim" class="nav-scrim" aria-label="关闭会话导航" tabindex="-1"></button>
+  <aside class="sidebar" id="sidebar" aria-label="会话导航">
+    <div class="sidebar-brand"><button class="wordmark" data-action="new" aria-label="开始新对话">Claude<span>UI DEMO</span></button><button class="icon-btn" data-action="toggle-nav" aria-label="收起侧栏" title="收起侧栏"><span data-icon="panel"></span></button></div>
+    <button class="new-chat" data-action="new"><span data-icon="plus-circle"></span><span>新建对话</span><kbd>⌘ ⇧ O</kbd></button>
+    <button class="nav-item" data-action="search"><span data-icon="search"></span><span>搜索对话</span><kbd>⌘ K</kbd></button>
+    <button class="nav-item active" data-action="home"><span data-icon="chat"></span><span>聊天</span></button>
+    <div class="history-label">最近的对话</div><nav id="history" class="history" aria-label="最近的对话"></nav>
+    <div class="sidebar-bottom"><div class="local-hint"><span></span>会话保存在当前浏览器</div><div class="account-row"><button class="account" data-action="about"><span class="avatar">S</span><span><strong>我的工作空间</strong><small>界面交互演示</small></span></button><button class="icon-btn" data-action="theme" id="theme-button" aria-label="切换深色主题" title="切换深色主题"><span data-icon="moon"></span></button></div></div>
+  </aside>
+  <div class="workspace"><header class="topbar"><div class="topbar-left"><button class="icon-btn open-sidebar" data-action="toggle-nav" aria-label="展开会话导航" aria-controls="sidebar" aria-expanded="false"><span data-icon="panel"></span></button><button id="thread-title" class="thread-title" data-action="rename">新对话<span data-icon="chevron-down"></span></button></div><div class="topbar-right"><span class="demo-badge">UI Demo</span><button class="icon-btn" data-action="export" aria-label="导出当前对话" title="导出当前对话"><span data-icon="download"></span></button></div></header><main id="main-content" tabindex="-1"></main></div>
+</div>
+<dialog id="search-dialog" class="search-dialog" aria-labelledby="search-heading"><h2 id="search-heading" class="sr-only">搜索对话</h2><div class="search-field"><span data-icon="search"></span><input id="search-input" aria-label="搜索对话内容" placeholder="搜索对话…" autocomplete="off"><button data-action="close-search" class="escape-key">ESC</button></div><div id="search-results"></div><footer>搜索标题与消息内容<span>Enter 打开 · Esc 关闭</span></footer></dialog>
+<dialog id="rename-dialog" class="small-dialog" aria-labelledby="rename-heading"><h2 id="rename-heading">重命名对话</h2><form id="rename-form"><label for="rename-input" class="sr-only">对话标题</label><input id="rename-input" class="text-field" maxlength="80" required><div class="dialog-actions"><button type="button" class="btn secondary" data-action="close-rename">取消</button><button class="btn ink" type="submit">保存</button></div></form></dialog>
+<dialog id="about-dialog" class="small-dialog" aria-labelledby="about-heading"><div class="about-symbol" data-icon="asterisk"></div><h2 id="about-heading">Claude 风格聊天界面</h2><p>这个实例用于体验布局与交互。模型菜单、会话记录、附件和消息操作可用；回复来自本地预设，没有连接真实 AI 模型。</p><p>对话与附件文本只保存在当前浏览器，不上传到服务器。可以导出为 Markdown。</p><div class="dialog-actions"><button class="btn ink" data-action="close-about">了解</button></div></dialog>
+<input type="file" id="file-input" accept=".txt,.md,.json" hidden><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/interactions.js"></script><script src="assets/chat.js"></script>
+</body></html>

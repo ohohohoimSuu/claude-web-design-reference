@@ -1,63 +1,69 @@
-# Agent 使用指南
+# Agent 使用指南 · v3
 
-本仓库提供 Claude 风格网页的设计参考、可直接引用的 CSS 和可选交互工具。先满足用户的业务目标与已有项目约束，再选择适用部分；不要求更换框架、整站重写或安装上游组件库。
+本仓库把一个已经认可的 Claude 风格完整聊天实例，与此前的设计参考和交互工具放在一起。目标是让后续 Agent 直接运行、复制、修改，而不是仅凭风格形容词重新设计。
 
-## 按任务读取
+## 从这里开始
 
-| 目的 | 文件 |
+1. 读 `README.md`，确认用户要完整聊天页，还是通用组件。
+2. 做 Claude 风格聊天或衍生产品界面时，默认先运行 `examples/claude-chat/index.html`，以它为视觉起点。具体文件职责见同目录 `README.md`。
+3. 仅能接收一个附件时，使用 `Claude网页设计参考_v3_Agent.md`：说明与完整文本源码在同一文件。Inter 二进制字体另外随实例附带；缺失时使用系统回退并说明字形差异。
+4. 用户需求、现有项目和无障碍约束优先；保留技术栈，避免为了复用而整站重写或安装上游 Electron 组件库。
+
+## 明确选择参考范围
+
+| 范围 | 入口与规则 |
 | --- | --- |
-| 人类视角的能力与用法 | `README.md` |
-| 完整规则、代码、来源与接入边界 | `Claude网页设计参考_v2_Agent.txt` |
-| 样式与设计变量 | `claude-reference.css`、`tokens.json` |
-| 交互函数及正确签名 | `interaction-examples.js`、`INTERACTION_API.txt` |
-| 采用或调整某参数的理由 | `INTEGRATION_DECISIONS.json` |
-| 已有验证证据 | `TEST_RESULTS.txt`、`VERIFICATION.json` |
-| 实际可交互效果 | `Claude网页设计参考_v2.html`，下载后本地打开 |
+| 已认可的聊天实例（默认） | `examples/claude-chat/`、`chat-profile.json`、v3 指南；Inter、本地字体、256px 侧栏、672px 首页输入框、20px 输入框圆角、黏土橙图标发送按钮 |
+| 通用组件手册（兼容保留） | `claude-reference.css`、`.claude-ref` / `.cr-*`、v2 HTML / 指南；近黑文字主按钮、舒适/紧凑密度、原始 Figma 颜色登记 |
+| 共享交互工具 | 根目录 `interaction-examples.js`、`INTERACTION_API.txt`；保留 `window.ClaudeRefV2` / CommonJS 兼容接口 |
+| 来源与证据 | `INTEGRATION_DECISIONS.json`、`tokens.json`、`VERIFICATION.json`、实例 `VALIDATION.md` |
 
-如果无法同时读取多个文件，单文件指南已经包含完整 CSS、JavaScript 与 API 说明，可独立作为上下文。
+不要把 v2 的侧栏、字号、密度或圆角覆盖到聊天实例。聊天实例使用 `chat.css` 的变量和类，`data-theme="light|dark"` 切换主题，没有密度切换。v2 的 `.cr-*` 规则仅适用于对应手册；两者的验证证据分开记录。
 
-## 默认实现规则
+## 保持认可的视觉
 
-- 沿用用户已有技术栈。CSS 可独立使用；原生 JS 暴露 `window.ClaudeRefV2`，也支持 CommonJS。React / Vue 可通过挂载与卸载生命周期绑定并清理 DOM。
-- 主题统一使用 `data-theme="light|dark"`；密度统一使用 `data-density="comfortable|compact"`；样式容器使用 `.claude-ref`，组件使用 `.cr-*`。
-- 默认暖白浅色、舒适密度和近黑主按钮。`accent` 是独立强调角色，不把全部操作改成橙色。正文与输入保持可读字号，窄屏和粗指针操作目标至少 44px 高。
-- 保留 `--color-*` 的来源与语义；项目建议变量使用 `--ref-*`。不要混入上游的 `.dark`、`data-mode`、`--cds-*` 形成第二套主题入口。
-- `tokens.json` 中的 `review_needed` 和 `excluded_from_css` 是未确认状态；不得将这些值悄悄变成默认颜色。新增或调整参数应注明是项目建议，而非官方数值。
-- 字体使用现有回退栈。本仓库没有品牌字体二进制文件，也没有加载真实模型或后端。
+- 先保持侧栏、阅读列、输入区域之间的比例，再替换品牌文案和业务内容。不要仅保留暖色背景却改成大卡片仪表盘或营销落地页。
+- 本地 Inter 400 / 500 / 600 及 OFL 已随实例附带；中文为系统回退。不存在 Anthropic 专有字体。
+- 浅色暖白、灰米色侧栏、轻边框与轻阴影；橙色只用于小面积强调和发送图标，不把所有文字主按钮改成橙底白字。
+- `chat-profile.json` 记录实际采用值。它是经认可的实现参数，不是官方 Claude Token 导出。`tokens.json` 的 8 个待核对语义色保持原标记。
+- 实例桌面/粗指针控件较紧凑；不要声称它满足 v2 的 44px 触控规则或完整无障碍标准。目标产品需要扩大命中区域时做明确调整并重新检查。
+- 品牌化产品改名、换项目图标；不要把演示名称或“示例回复”改成对真实后端能力的虚假承诺。
 
-## 交互复用规则
+## 业务与交互边界
 
-1. **输入栏**：优先用 `bindComposer()`。组合输入期间不能发送；Enter 发送、Shift+Enter 换行；空白和 pending 时不重复提交；失败保留草稿。业务提交由 `onSubmit` 提供。
-2. **弹窗**：使用原生 `<dialog>` 和 `bindDialog()`，提供可访问名称。初始焦点优先取消等安全操作；关闭后恢复入口；组件卸载时调用 `dispose()`。
-3. **候选范围**：`findSuggestionTrigger()` 与 `replaceSuggestion()` 只提供范围逻辑。完整菜单、搜索数据、键盘选项和 ARIA 由项目接入；选中前验证文本与光标未过期。
-4. **流式滚动**：`createScrollPinning()` 是状态机，必须接上用户输入、scroll、内容更新和显式跳转。用户向上阅读时不能强制拉回底部。
-5. **键盘漫游**：`nextRovingIndex()` 负责索引；调用方维护唯一 Tab 入口、焦点、禁用项映射及适当语义。真实网格须传列数。
-6. **动效与清理**：尊重 `prefers-reduced-motion`；移除监听、观察器和计时器。不复制未验证的分栏、音频或任意代码执行逻辑。
+- `chat.js` 的 `seed` 与 `response()` 是演示内容，`startRun()` 使用计时器模拟逐步显示。接模型时替换为真实服务调用与取消机制，处理失败、重试、未完成回复和草稿恢复。
+- 模型菜单只是本地选择状态。只有真正接入模型后才能称为模型切换。
+- 附件由 `File.text()` 在本机读取；未上传。`localStorage` 按来源隔离，不是用户账号、服务端保存或多设备同步。`STORE` 应在复用到新产品时改成独立键。
+- 模拟“思考过程”是占位说明。接入后只展示服务实际提供且允许展示的状态/摘要，不伪造模型内部思考。
+- `bindComposer()` 处理 IME、自动高度与提交保护；`bindDialog()` 处理原生 dialog 的焦点；`createScrollPinning()` 只提供跟随状态机。参数以 `INTERACTION_API.txt` 为准。
+- React/Vue 迁移时将全局 DOM 逻辑转为组件状态，卸载时清理绑定、事件、计时器与请求；不要把示例全局监听重复安装在每次渲染中。
+- 原生渲染器是受限 Markdown 示例，不是通用富文本/HTML 渲染器。接真实模型保留转义或使用有适当清理的成熟解析器。
 
-具体参数和返回值以 `INTERACTION_API.txt` 与当前代码为准，不凭函数名猜测 API。
+## 修改入口与生成文件
 
-## 工作顺序
+| 要改的部分 | 源文件 |
+| --- | --- |
+| 页面骨架、导航、弹窗和静态文案 | `examples/claude-chat/index.html` |
+| 颜色、字体、比例、组件、响应式 | `examples/claude-chat/assets/chat.css` |
+| 会话状态、示例回复、附件、搜索、事件 | `examples/claude-chat/assets/chat.js` |
+| 字体加载与许可 | `examples/claude-chat/assets/fonts.css`、`assets/fonts/` |
+| 共享输入/滚动/焦点逻辑 | 根目录 `interaction-examples.js` |
+| v3 指南说明正文 | `docs/agent-guide-intro.md` |
+| 便携 HTML、完整文本指南、共享文件副本、哈希清单 | 运行 `python3 scripts/build-deliverables.py` 生成 |
 
-1. 阅读需求与目标项目，明确页面、内容、操作和真实数据来源。
-2. 选择所需样式与交互，区分直接可用的代码和仍需业务接线的部分。
-3. 实现并检查真实内容：长中文、窄容器、错误、禁用、加载与空状态。
-4. 验证后提供可运行入口、改动说明和未覆盖项。不要把静态示例描述成已接入模型、上传或存储。
+不要直接编辑 `standalone.html`、v3 指南内的源码块，或示例中的共享 JS/CSS 副本。源码改完先生成，再验证。视觉参数变化时同步 `chat-profile.json` 和截图说明。
 
-## 验证要求
+## 工作与验证顺序
 
-修改交互 JavaScript 时运行：
+1. 运行：仓库根目录 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 `/examples/claude-chat/`。
+2. 先确认原例能运行，再做业务修改。
+3. 执行 `python3 scripts/build-deliverables.py`，然后 `python3 scripts/verify-package.py`。后者包括链接/资源/分发一致性、JS 语法和原有 11 组交互状态测试。
+4. 页面变化需浏览器核验：浅深主题、390px 无横向溢出、侧栏抽屉、发送/换行/草稿、搜索、代码复制、生成/停止。IME、屏幕阅读器、物理触屏等未实测项目标为未覆盖。
+5. 提供可运行入口、实际改动和验证边界；不要把静态检查当成真实模型调用、登录或持久化的验证。
 
-```sh
-node interaction-tests.cjs
-```
+## 仓库维护
 
-修改样式或集成页面时，按改动检查浅深色、两档密度、390px 手机布局、键盘焦点与颜色对比。输入框验证组合输入与换行；弹窗验证正反向 Tab、Escape 与焦点恢复；流式界面验证向上阅读不被打断。
-
-文档和截图更新只需核对声明、链接与实际渲染，不必为此重复跑全部交互测试。现有测试结果不能代替新业务接入后的验收；真实系统输入法、屏幕阅读器与触屏行为需在相应环境验证。
-
-## 维护与归属
-
-- 保持说明与实际代码一致。涉及源值时同步参数、指南与适用的演示，保留来源层级和固定提交信息。
-- `source-*.png` 为 Figma 参考截图；`assets/readme-*.jpg` 为本项目实际运行的 README 效果图。不要将二者混称为官方产品截图。
-- 上游来源和许可见 `UPSTREAM_LICENSE.txt` 与 README。保留归属，不把上游的许可自动套到全部截图或整份材料。
-- 这份指南适用于当前参考的复用与维护，不授权修改用户账号、公开仓库、发送外部消息或引入额外付费服务。
+- README 使用 `assets/readme-chat-*.jpg`，来自实际运行的 v3 实例。`source-*.png` 是 Figma 参考，其他 v2 预览不是 v3 截图。
+- 临时 Cloudflare 预览和认领 URL 不作为长期运行入口；凭证、个人测试对话和发布配置不放进分发包。`standalone.html` 和本地启动命令是稳定入口。
+- 保留来源与许可。共享 API 不因文档升级而改名；不要破坏既有 `ClaudeRefV2` 调用。
+- 本指南仅约束参考的复用与维护，不额外授权改账号权限、公开仓库、发送外部消息或购买服务。

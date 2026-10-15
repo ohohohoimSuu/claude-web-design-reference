@@ -1,0 +1,95 @@
+{
+  "version": "3.0",
+  "id": "approved-chat-demo",
+  "default_for": "Claude-style chat layouts and product UI examples",
+  "provenance": "User-approved implementation inspired by the supplied CDS Storybook; not official Claude design tokens",
+  "visual_reference": "https://claude-storybook.bystanderss.chatgpt.site/",
+  "entry": "examples/claude-chat/index.html",
+  "styles": "examples/claude-chat/assets/chat.css",
+  "themes": {
+    "light": {
+      "canvas": "#faf9f6",
+      "sidebar": "#f0efea",
+      "surface": "#fff",
+      "hover": "#e8e7e2",
+      "selected": "#e4e3dd",
+      "ink": "#262624",
+      "secondary": "#66645f",
+      "muted": "#92908a",
+      "border": "rgba(25,25,23,.10)",
+      "strong-border": "rgba(25,25,23,.18)",
+      "clay": "#d97757",
+      "clay-hover": "#c86647",
+      "user": "#f0f1f5",
+      "width": "256px",
+      "shadow": "0 4px 20px rgba(0,0,0,.035),inset 0 0 0 1px var(--border)",
+      "popover-shadow": "0 10px 28px #00000013,0 0 0 1px #0000000b",
+      "font": "Inter,-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",\"Microsoft YaHei\",sans-serif"
+    },
+    "dark": {
+      "canvas": "#262624",
+      "sidebar": "#1f1f1d",
+      "surface": "#30302e",
+      "hover": "#363633",
+      "selected": "#3a3a36",
+      "ink": "#e9e8e2",
+      "secondary": "#b4b2aa",
+      "muted": "#88877f",
+      "border": "rgba(255,255,245,.10)",
+      "strong-border": "rgba(255,255,245,.19)",
+      "user": "#383936",
+      "shadow": "0 4px 20px #00000016,inset 0 0 0 1px var(--border)",
+      "popover-shadow": "0 10px 30px #0005,0 0 0 1px #ffffff13"
+    }
+  },
+  "layout": {
+    "sidebar_desktop_px": 256,
+    "sidebar_medium_px": 232,
+    "sidebar_drawer_px": 256,
+    "home_outer_max_px": 736,
+    "home_horizontal_padding_px": 32,
+    "home_composer_max_px": 672,
+    "conversation_outer_max_px": 784,
+    "conversation_horizontal_padding_px": 40,
+    "conversation_inner_max_px": 704,
+    "drawer_breakpoint_px": 760,
+    "medium_breakpoint_px": 1050
+  },
+  "typography": {
+    "ui_font": "Inter with system CJK fallback",
+    "weights": [
+      400,
+      500,
+      600
+    ],
+    "home_heading_px": 32,
+    "assistant_body_px": 15,
+    "assistant_line_height": 1.8,
+    "user_body_px": 14,
+    "desktop_input_px": 15,
+    "mobile_input_px": 16
+  },
+  "components": {
+    "composer_radius_px": 20,
+    "message_radius_px": 18,
+    "code_radius_px": 11,
+    "popover_radius_px": 12,
+    "dialog_radius_px": 14,
+    "desktop_send_px": 32,
+    "coarse_pointer_send_px": 40,
+    "textarea_max_height_px": 260
+  },
+  "scope_notes": [
+    "This profile has light/dark themes but no density switch.",
+    "Compact visual controls follow the accepted demo; v2 44px touch-target checks do not apply to this example. Increase targets as required by the receiving product.",
+    "Clay is used for the icon-only send action, not a blanket color for all primary text buttons.",
+    "Binary Inter fonts are bundled with OFL license in the runnable example; the text-only guide uses system fallbacks if they are unavailable."
+  ],
+  "business_boundaries": {
+    "real_ai": false,
+    "file_upload_to_server": false,
+    "storage": "browser localStorage",
+    "storage_key": "claude-ui-demo.v1",
+    "demo_responses": true
+  }
+}

@@ -134,5 +134,12 @@
     "真实系统IME、屏幕阅读器和触屏行为未自动验证",
     "第三方完整组件库未安装或整体运行",
     "8个原Figma变量仍部分/全部主题待核对"
-  ]
+  ],
+  "scope": "Legacy v2 handbook and shared helper evidence; see examples/claude-chat/VALIDATION.md for v3 example evidence.",
+  "chat_example": {
+    "version": "3.0",
+    "record": "examples/claude-chat/VALIDATION.md",
+    "source_unchanged_from_approved_demo": true,
+    "package_check": "python3 scripts/verify-package.py"
+  }
 }

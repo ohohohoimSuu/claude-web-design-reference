@@ -83,5 +83,13 @@
     "adopted": "通用包不引入这些依赖；分栏只收验收规则，未附未验证组件",
     "provenance": "implementation_recommendation",
     "source": "https://github.com/Caho1/open-claude-ui/blob/f4947c62a459f6413ed44b289a8d495962add1a2/src/index.ts#L27-L45"
+  },
+  {
+    "title": "以认可的聊天实例作为默认视觉起点",
+    "upstream_summary": "v2 通用手册与 Storybook 风格的实际聊天页在字体、比例、控件密度和强调色角色上不同",
+    "adopted": "v3 默认复用 examples/claude-chat，按 chat-profile.json 记录实际值；v2 通用样式和原始 Figma 标注独立保留，避免混用；Inter 按 OFL 随包附带",
+    "provenance": "user_approved_implementation",
+    "source": "https://claude-storybook.bystanderss.chatgpt.site/",
+    "implementation": "examples/claude-chat/index.html"
   }
 ]

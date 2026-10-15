@@ -1,198 +1,135 @@
 # Claude Web Design Reference
 
-**用统一的视觉和交互规则，搭建 Claude 风格的聊天页、知识库和工具工作台。**
+**一套带完整聊天实例的 Claude 风格网页设计参考。下载就能看，复制就能改，也可以直接交给 Agent。**
 
-这是一套可以直接复用的网页设计参考：有配色与布局规则、现成 CSS、7 个原生 JavaScript 交互工具，还有一份包含完整代码的 Agent 指南。你可以自己接入项目，也可以让 AI 开发助手按照这些规则实现页面。
+v3 将实际运行并经使用者认可的聊天界面作为默认起点：暖白画布、灰米色侧栏、Inter 字体、轻边框、黏土橙发送按钮，以及完整的消息与输入操作。配色、尺寸、源码、字体和接手说明都在仓库里。
 
-**浅色 / 深色主题 · 舒适 / 紧凑密度 · 离线交互手册 · CSS / JS 无外部包依赖**
+**完整聊天实例 · 浅色 / 深色 · 手机抽屉导航 · 本地字体 · 无 npm 依赖 · Agent 单文件指南**
 
-[效果预览](#效果预览) · [功能一览](#功能一览) · [快速开始](#快速开始) · [Agent 接入](#agent-接入) · [API 说明](./INTERACTION_API.txt)
+[看效果](#实际效果) · [运行实例](#下载运行) · [交给 Agent](#交给-agent) · [按需取用](#按需取用) · [修改与验证](#修改与验证)
 
-| 如果你是…… | 从这里开始 |
+## 实际效果
+
+下面是 `examples/claude-chat/` 实际运行的截图。首页与对话页属于同一个实例。
+
+**浅色首页**：会话导航、居中的输入框、模型选择、附件入口和快捷提示。
+
+![完整聊天实例的浅色首页](./assets/readme-chat-home.jpg)
+
+**深色对话**：用户消息、助手正文、代码块、消息操作和底部输入框。
+
+![完整聊天实例的深色对话页](./assets/readme-chat-dark.jpg)
+
+<details>
+<summary>查看 390px 手机聊天效果</summary>
+
+<img src="./assets/readme-chat-mobile.jpg" alt="390px 手机聊天布局" width="390">
+
+</details>
+
+截图来自本项目实例，状态可能包含演示交互；不是 Claude 官方产品截图。仓库不依赖有时限的临时预览链接。
+
+## 现在能用什么
+
+| 能力 | 实例里已接好的行为 |
 | --- | --- |
-| 想看看能做什么的人 | 看下面的截图和功能清单，再下载 [交互手册](./Claude网页设计参考_v2.html) |
-| 想让 AI 帮忙做网页的人 | 下载 [Agent 单文件指南](./Claude网页设计参考_v2_Agent.txt)，和需求一起发送 |
-| 已经有项目的开发者 | 复制 [CSS](./claude-reference.css)，按需引入 [交互 JS](./interaction-examples.js) |
-| 正在读取这个仓库的 Agent | 先读 [AGENTS.md](./AGENTS.md)，再按任务加载指南、样式或 API |
+| 会话管理 | 新建、切换、搜索、重命名；保存在当前浏览器；导出 Markdown |
+| 输入与发送 | 输入框自动增高，Enter 发送、Shift+Enter 换行，组合输入保护，生成期间保留新草稿 |
+| 模型与思考 | Sonnet / Opus / Haiku 选择菜单，Extended thinking 开关，思考过程折叠 |
+| 消息显示 | 预设回复逐步显示、停止生成、重新生成示例、代码块与复制、回复复制、有帮助标记 |
+| 附件 | 添加示例资料或读取本地 txt / md / json，最多 3 个、每个 100 KB |
+| 页面适配 | 浅深主题、桌面收起侧栏、手机抽屉导航、长中文和窄屏排版 |
 
-## 效果预览
+**这是可以操作的前端实例。** 模型菜单不会调用真实模型；回复来自本地预设；附件文本和会话保存在当前浏览器，没有账号、服务器上传或多设备同步。
 
-**按钮、选择控件、输入框与应用卡片** — 下图是本项目实际运行的样式。
+## 下载运行
 
-![浅色组件预览：主次按钮、强调与危险操作、复选框、开关、表单和卡片](./assets/readme-components.jpg)
+### 只想直接看效果
 
-**深色聊天布局** — 侧边导航、阅读区、用户消息和输入栏共用一套主题变量。
+打开 **[单文件实例 standalone.html](./examples/claude-chat/standalone.html)**，选择 **Download raw file** 下载后用浏览器打开。样式、脚本、图标和 Inter 字体已经内嵌，断网也能显示。
 
-![深色聊天布局：侧边导航、消息气泡与输入栏](./assets/readme-chat-dark.jpg)
+浏览器对 `file://` 的复制和持久化支持不一致；需要完整测试这些操作时，用下面的本地服务器方式。
 
-想亲手试用？打开 [HTML 手册文件](./Claude网页设计参考_v2.html)，选择 **Download raw file** 下载，再用浏览器打开。里面可以切换主题与密度，操作弹窗、键盘工具栏、句中替换和模拟流式输出。下载后可离线使用。
+### 想修改实例
 
-## 功能一览
-
-| 你想做的事情 | 已有的可复用内容 | 使用入口 |
-| --- | --- | --- |
-| 让整站配色与排版统一 | 浅深色变量、文字层级、间距、圆角、轻阴影与状态色 | [CSS](./claude-reference.css) / [参数 JSON](./tokens.json) |
-| 组合表单与工作台 | 默认描边、主操作、次操作、透明、强调、危险共 6 种按钮样式；输入框、文本域、开关、单选、复选、卡片与导航样式 | CSS 中的 `.cr-*` 类 |
-| 同时照顾阅读和密集操作 | 舒适 / 紧凑两档密度；窄屏与粗指针下扩大操作目标 | `data-density` |
-| 做一个好用的聊天输入栏 | 自动高度、Enter 发送、Shift+Enter 换行、组合输入保护、异步重复提交拦截 | `bindComposer()` |
-| 避免弹窗打开后焦点乱跑 | 原生模态框、初始焦点、Tab 循环、Escape 关闭及焦点恢复 | `bindDialog()` |
-| 让流式回复尊重阅读位置 | 用户向上阅读时停止追尾；点击“跳到最新”后恢复 | `createScrollPinning()` 状态逻辑 |
-| 为 `@` / `/` 建议菜单打基础 | 检测光标前的触发词，按范围替换，保留句中后缀并拒绝过期文本 | `findSuggestionTrigger()` + `replaceSuggestion()` |
-| 给工具栏或网格加键盘导航 | Home / End、方向键、首尾回绕、RTL 与网格列步长 | `nextRovingIndex()` 索引逻辑 |
-| 让卡片内的工具栏适配窄空间 | 根据容器宽度隐藏可选提示、换行，并保留主要操作 | `.cr-toolbar-container` |
-
-样式可以直接引用；输入栏和弹窗提供 DOM 绑定；滚动、候选范围与焦点索引提供逻辑函数，需要接上你自己的界面和数据。交互代码集中在 [interaction-examples.js](./interaction-examples.js)。
-
-## 快速开始
-
-### 1. 让 Agent 帮你做网页
-
-下载 **[Claude网页设计参考_v2_Agent.txt](./Claude网页设计参考_v2_Agent.txt)**，和需求一起发送：
-
-```text
-请参考附带的设计指南，为我做一个个人知识库网页。
-
-需要：左侧分类导航、笔记列表、正文阅读区和搜索框。
-默认浅色主题，提供深色切换；正文采用舒适密度。
-复用指南里的样式与适用的交互逻辑，保留我现有的技术栈。
-完成后检查手机布局、键盘焦点和长中文内容。
-```
-
-这一个文件已经包含规则、完整 CSS / JS、API 说明与来源，不必再把仓库文件逐个上传。它也适合用来改造已有页面的视觉风格。
-
-### 2. 在现有项目中使用样式
-
-将 [claude-reference.css](./claude-reference.css) 放进项目，给页面设置主题和密度，再组合 `.cr-*` 类：
-
-```html
-<!doctype html>
-<html lang="zh-CN" data-theme="light" data-density="comfortable">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="claude-reference.css">
-    <title>我的知识库</title>
-  </head>
-  <body class="claude-ref">
-    <main class="cr-main">
-      <div class="cr-reading">
-        <article class="cr-card">
-          <h1>我的知识库</h1>
-          <p>在统一的阅读界面里整理想法。</p>
-          <button class="cr-btn cr-btn--primary">新建笔记</button>
-          <button class="cr-btn cr-btn--ghost">查看全部</button>
-        </article>
-      </div>
-    </main>
-  </body>
-</html>
-```
-
-改成 `data-theme="dark"` 即可切换深色；改成 `data-density="compact"` 可获得更紧凑的控件和间距。阅读正文与输入字号不会随密度一起缩小。
-
-### 3. 给输入栏加上交互
-
-引入 [interaction-examples.js](./interaction-examples.js)，使用 `window.ClaudeRefV2`。下面的示例沿用上一步的 CSS，在本地接收并显示输入：
-
-```html
-<form id="composer" class="cr-composer">
-  <label for="draft">写下你的想法</label>
-  <textarea id="draft" placeholder="Enter 发送，Shift+Enter 换行"></textarea>
-  <button class="cr-btn cr-btn--primary" type="submit">发送</button>
-</form>
-<p id="result" role="status"></p>
-
-<script src="interaction-examples.js"></script>
-<script>
-  const form = document.querySelector('#composer');
-  const composer = ClaudeRefV2.bindComposer(
-    document.querySelector('#draft'),
-    async (text) => {
-      // 替换成你的提交逻辑；此示例只在本地显示文本。
-      document.querySelector('#result').textContent = text;
-    }
-  );
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    void composer.submit();
-  });
-
-  // 组件卸载时调用 composer.dispose() 清理监听。
-</script>
-```
-
-原生页面可以直接使用。React / Vue 项目可在组件挂载时绑定，在卸载时调用 `dispose()`；纯状态函数也可以用于自己的 Hook / composable。无需为了使用这份参考而更换现有技术栈。
-
-## Agent 接入
-
-**能读取仓库的 Agent：**从 [AGENTS.md](./AGENTS.md) 开始，按下面的文件职责选择要读取的内容。支持该约定的工具可能自动加载它；其他工具可由用户明确指定读取。
-
-**只能接收附件或文本的 Agent：**读取 [单文件指南](./Claude网页设计参考_v2_Agent.txt) 即可，文件内包含完整代码，无需额外下载依赖。
-
-给能访问仓库的 Agent 的任务提示词：
-
-```text
-请先读取本仓库的 AGENTS.md，再按本次任务需要读取设计指南与 API。
-复用现有 CSS 和适用的交互函数，保持项目已有技术栈。
-明确哪些是直接可用的样式、哪些逻辑仍需接入业务。
-我的网页需求是：……
-```
-
-| Agent 需要解决什么 | 读取哪个文件 |
-| --- | --- |
-| 理解任务边界、执行顺序和验收要求 | [AGENTS.md](./AGENTS.md) |
-| 获取完整设计规则与可复制代码 | [单文件指南](./Claude网页设计参考_v2_Agent.txt) |
-| 直接引用样式或接入交互 | [claude-reference.css](./claude-reference.css) / [interaction-examples.js](./interaction-examples.js) |
-| 查 API 参数、返回值和清理方式 | [INTERACTION_API.txt](./INTERACTION_API.txt) |
-| 读取结构化参数或追溯设计取舍 | [tokens.json](./tokens.json) / [整合决策](./INTEGRATION_DECISIONS.json) |
-| 确认可验证范围 | [测试结果](./TEST_RESULTS.txt) / [浏览器记录](./VERIFICATION.json) |
-
-## 设计规则速览
-
-| 维度 | 默认方案 |
-| --- | --- |
-| 表面与文字 | 暖白页面、灰米色次表面、近黑文字；提供对应深色变量 |
-| 操作层级 | 近黑主按钮、浅填充次按钮、陶土强调与红色危险操作 |
-| 密度 | 普通按钮 36px，紧凑模式 32px；窄屏或粗指针目标至少 44px |
-| 排版 | 正文与输入 16px，UI 14px；动态数字等宽对齐 |
-| 组件圆角 | 控件 8px、卡片 12px、弹窗 16px、消息 18px、输入区 20px |
-| 响应式 | 页面断点与组件容器查询配合，保留主要操作 |
-| 动效 | 少量统一时长与缓动，支持减弱动效设置 |
-
-配色登记来自 Figma 可见标注；组件尺寸与交互参数中包含本项目的实现建议。37 个颜色变量、12 项整合决策和各自来源记录在 [tokens.json](./tokens.json) 与 [INTEGRATION_DECISIONS.json](./INTEGRATION_DECISIONS.json) 中。
-
-## 交互工具索引
-
-| API | 负责什么 |
-| --- | --- |
-| `bindComposer()` | textarea 自动高度、提交、组合输入保护、异步状态和监听清理 |
-| `createCompositionGuard()` | 在自定义输入组件中单独判断是否允许发送 |
-| `findSuggestionTrigger()` | 返回光标前 `@` / `/` 触发词及其范围 |
-| `replaceSuggestion()` | 只替换指定范围，保留左右文字，拒绝过期快照 |
-| `createScrollPinning()` | 管理追尾、用户阅读、冷却时间和跳到最新的状态 |
-| `nextRovingIndex()` | 计算一维或网格导航的下一个焦点索引 |
-| `bindDialog()` | 绑定原生 dialog 的初始焦点、Tab 边界和关闭恢复 |
-
-完整签名见 [INTERACTION_API.txt](./INTERACTION_API.txt)。候选菜单的数据源、滚动事件接线与业务请求由使用方按项目实现。
-
-## 验证与使用范围
-
-无需安装依赖，使用 Node.js 运行：
+下载整个仓库，或者克隆到本机。在仓库根目录执行：
 
 ```sh
-node interaction-tests.cjs
+python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-当前版本通过 **11 组状态与选择逻辑测试**。浏览器核验覆盖浅深色、两档密度、390px 布局、输入提交与换行、弹窗焦点、句中替换、键盘回绕和模拟流式阅读。详细记录见 [TEST_RESULTS.txt](./TEST_RESULTS.txt) 与 [VERIFICATION.json](./VERIFICATION.json)。
+然后打开 **http://127.0.0.1:8080/examples/claude-chat/**。不需要 `npm install`，也不需要 API Key。
 
-本项目提供前端样式、交互工具和参考页面。模型调用、真实上传、数据存储与完整应用业务由项目接入。真实系统输入法、屏幕阅读器和触屏行为仍需在目标环境测试；8 个尚待核对的 Figma 语义色保留标记，不作为已确认值输出。
+只需复制整个 [`examples/claude-chat/`](./examples/claude-chat/) 目录，就能作为独立静态项目继续开发。`index.html` 与 `assets/` 是可编辑源码；`standalone.html` 是生成的便携版。
 
-## 来源与致谢
+## 交给 Agent
 
-- **[MCP Apps for Claude Community UI kit](https://www.figma.com/design/RBi8VghMgGaJoJuNCbe2s6/MCP-Apps-for-Claude--Community-?node-id=0-1)**：配色、字体层级及桌面网页组件的视觉参考。
-- **[Caho1/open-claude-ui](https://github.com/Caho1/open-claude-ui/tree/f4947c62a459f6413ed44b289a8d495962add1a2)**：组件结构与交互模式参考，固定到提交 `f4947c6`。
+**能读取仓库：**让 Agent 先读 [AGENTS.md](./AGENTS.md)。它会找到已认可的实例、准确的文件职责、两套参考的适用范围和验证方法，不依赖某一家 Agent 的专用接口。
 
-交互函数由本项目独立编写，并修正了输入保护、句中替换与焦点管理等接入细节。原始标注、第三方代码与本项目建议分别记录，便于后续调整和核对。
+**只能发一个附件：**下载 **[Claude网页设计参考_v3_Agent.md](./Claude网页设计参考_v3_Agent.md)**。它先解释如何使用，再给出设计规则、接入位置和完整的文本源码，可独立重建界面。二进制字体不塞进文本上下文；要与截图使用同一套 Inter，复制示例里的 `assets/fonts/`。没有字体文件时可用系统回退。
 
-本项目非 Anthropic 官方项目，不附带品牌字体、Logo 或音频文件。上游许可保留在 [UPSTREAM_LICENSE.txt](./UPSTREAM_LICENSE.txt)；该声明对应上游材料，不代表 Figma 截图或整份参考自动采用相同许可。
+可以直接复制这段任务说明：
+
+```text
+请读取这个仓库的 AGENTS.md，以 examples/claude-chat/ 的已认可实例为视觉起点。
+先运行现有实例，再根据我的需求修改内容与功能。保留现有技术栈。
+保持它的配色、字体层级、侧栏和阅读列比例、输入框与消息样式，
+不要重新设计成卡片仪表盘，也不要混用旧版手册的布局尺寸。
+明确标注模拟行为；只有真正接好后端后才能称为真实功能。
+完成后检查桌面浅深主题、390px 布局、输入与草稿、会话搜索和代码复制。
+
+我的需求是：……
+```
+
+这个实例也可以迁移到 React / Vue：沿用目标项目结构，拆分导航、输入框、消息和对话框；保留视觉比例与行为，不需要照搬原生 DOM 渲染方式。详细说明见 [实例 README](./examples/claude-chat/README.md)。
+
+## 按需取用
+
+| 你需要什么 | 直接使用 |
+| --- | --- |
+| 做出截图中的聊天界面 | [`examples/claude-chat/`](./examples/claude-chat/) |
+| 只下载一个可运行文件 | [`standalone.html`](./examples/claude-chat/standalone.html) |
+| 给 Agent 完整文本上下文 | [v3 单文件指南](./Claude网页设计参考_v3_Agent.md) |
+| 查询实例的实际颜色和尺寸 | [`chat-profile.json`](./chat-profile.json)、[chat.css](./examples/claude-chat/assets/chat.css) |
+| 在现有页面中使用通用表单组件 | [v2 CSS](./claude-reference.css)、[交互手册](./Claude网页设计参考_v2.html) |
+| 复用输入、弹窗、滚动跟随等工具 | [interaction-examples.js](./interaction-examples.js)、[API 说明](./INTERACTION_API.txt) |
+| 查看原始 Figma 标注和整合取舍 | [tokens.json](./tokens.json)、[INTEGRATION_DECISIONS.json](./INTEGRATION_DECISIONS.json) |
+
+**两套参考有明确边界。** v3 聊天实例是本次认可的视觉起点，采用 Inter、256px 桌面侧栏、672px 首页输入框和黏土橙图标发送按钮；v2 保留通用 `.cr-*` 组件、近黑文字主按钮、两档密度，以及原始 Figma 颜色登记。它们共用交互工具，但布局与视觉参数不能互相覆盖。v3 实例没有密度切换。
+
+## 设计参数速览
+
+| 项目 | 聊天实例采用值 |
+| --- | --- |
+| 浅色表面 | 页面 `#faf9f6`，侧栏 `#f0efea`，输入框 `#ffffff` |
+| 深色表面 | 页面 `#262624`，侧栏 `#1f1f1d`，输入框 `#30302e` |
+| 强调色 | `#d97757`，用于小面积符号和图标发送按钮 |
+| 字体 | 本地 Inter 400 / 500 / 600；中文使用系统回退 |
+| 布局 | 桌面侧栏 256px；首页输入框最大 672px；会话内容宽度最大 704px |
+| 排版 | 首页标题 32px；助手正文 15px / 1.8；手机输入 16px |
+| 圆角 | 输入框 20px；用户消息 18px；代码块 11px；弹窗 14px |
+| 手机布局 | 760px 以下使用侧栏抽屉；390px 布局已有预览验证 |
+
+这些是**本实例的实现值**，不等于 Claude 的完整官方规范。实例保留了紧凑控件；它不继承 v2 的“触控目标至少 44px”验证结论。实际产品应按目标设备补充触控、键盘和对比度验收。
+
+## 修改与验证
+
+改样式、页面或聊天逻辑后，重新生成单文件交付，再运行检查：
+
+```sh
+python3 scripts/build-deliverables.py
+python3 scripts/verify-package.py
+```
+
+检查包含：文件引用与字体、分发文件与源码同步、源代码语法、7 个交互 API 对应的 **11 组状态测试**、单文件内嵌资源和 SHA-256 清单。页面视觉和真实操作仍要在浏览器核验；见 [实例验证记录](./examples/claude-chat/VALIDATION.md)。
+
+不要直接修改生成的 `standalone.html` 或 v3 指南代码块。修改 `examples/claude-chat/` 中的源码和 `docs/agent-guide-intro.md`，再执行生成脚本。共享交互工具以根目录 `interaction-examples.js` 为准。
+
+## 来源与许可
+
+- [用户提供的 CDS Storybook](https://claude-storybook.bystanderss.chatgpt.site/)：v3 聊天实例的视觉参照。
+- [MCP Apps for Claude Community UI kit](https://www.figma.com/design/RBi8VghMgGaJoJuNCbe2s6/MCP-Apps-for-Claude--Community-?node-id=0-1)：保留在 v2 中的颜色、排版和组件标注参考。
+- [Caho1/open-claude-ui](https://github.com/Caho1/open-claude-ui/tree/f4947c62a459f6413ed44b289a8d495962add1a2)：组件结构与交互模式参考，固定提交 `f4947c6`；[上游许可](./UPSTREAM_LICENSE.txt)。
+- [Inter](https://github.com/rsms/inter)：本实例附带的开源字体；[SIL Open Font License](./examples/claude-chat/assets/fonts/OFL.txt)。
+
+本项目是非官方设计参考。Claude 名称与示意符号用于说明参考对象，不代表 Anthropic 授权或合作。未附带 Anthropic 专有字体、官方 Logo 文件或生产样式源码。第三方许可只覆盖对应材料，不能自动套到 Figma 截图和整份参考。
