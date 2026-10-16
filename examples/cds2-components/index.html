@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="可复用的 CDS 2.0 推理选择、输入框工具栏和 CSS 动效参考。">
+  <title>CDS 2.0 · 组件参考</title>
+  <link rel="stylesheet" href="../claude-chat/assets/fonts.css">
+  <link rel="stylesheet" href="components.css"><link rel="stylesheet" href="preview.css">
+</head>
+<body class="cds2-reference" data-theme="light">
+  <header class="preview-header"><a class="brand" href="../claude-chat/"><span class="brand-symbol">✳</span>Claude <span>Design Reference</span></a><div class="header-actions"><span class="version">3.1 / CDS 2.0</span><button class="cds2-button cds2-button--outline" id="theme-toggle">切换深色</button></div></header>
+  <main class="preview-main">
+    <div class="intro"><div class="eyebrow">COMPONENT STUDY · 01</div><h1>输入与推理控制</h1><p>把常用操作留在输入框底部，让推理强度有清晰的位置。</p><span class="scope-label">本地交互参考 · 不调用模型</span></div>
+    <div class="preview-grid">
+      <section class="composer-preview" aria-labelledby="composer-heading">
+        <div class="section-caption"><h2 id="composer-heading">01 / Composer</h2><span>12 px 圆角 · 独立底栏</span></div>
+        <div class="composer-stage">
+          <div class="cds2-composer">
+            <div class="cds2-attachments" id="attachments" hidden><span class="cds2-chip">↗ 项目说明.md<button id="remove-attachment" aria-label="移除示例附件">×</button></span></div>
+            <label class="visually-hidden" for="study-message">输入示例消息</label>
+            <textarea id="study-message" placeholder="从一个想法开始…" rows="3"></textarea>
+            <div class="cds2-queue" id="queue-banner" hidden><span>2 条未发送消息 · 示例状态</span><button class="cds2-button" id="retry-queue">演示重试</button></div>
+            <div class="cds2-chin">
+              <div class="cds2-chin-group">
+                <details class="cds2-effort" id="effort-picker">
+                  <summary>推理 <span data-effort-value>High</span></summary>
+                  <div class="cds2-effort-panel">
+                    <h3 id="effort-heading">选择推理强度</h3>
+                    <fieldset class="cds2-effort-options" data-effort-options aria-labelledby="effort-heading"></fieldset>
+                    <p class="cds2-effort-note" data-effort-note role="status"></p>
+                    <button class="cds2-button cds2-button--outline" type="button" data-effort-done>完成</button>
+                  </div>
+                </details>
+                <button class="cds2-button" id="add-attachment" aria-label="添加示例附件">＋ <span>附件</span></button>
+              </div>
+              <div class="cds2-chin-group"><span class="keyboard-hint">Enter 发送</span><button class="cds2-button cds2-button--solid cds2-send" id="study-send" aria-label="提交到本地预览" disabled>↑</button></div>
+            </div>
+          </div>
+          <p class="composer-footnote">输入和附件只用于本页演示；没有网络请求或离线存储。</p>
+        </div>
+        <div class="demo-controls"><button class="cds2-button cds2-button--outline" id="queue-toggle">查看失败状态</button><label class="lock-setting"><input type="checkbox" id="effort-lock">锁定档位</label><label class="model-setting" for="capability-select">可用档位<select id="capability-select"><option value="all">全部五档</option><option value="limited">Low / High</option></select></label></div>
+        <div class="receipt" id="receipt" role="status"><span class="receipt-dot"></span>可以输入文字并提交，查看业务层收到的参数。</div>
+      </section>
+      <aside class="parameter-panel" aria-labelledby="parameter-heading"><div class="section-caption"><h2 id="parameter-heading">State / 实时状态</h2><span class="live-dot"></span></div><pre id="state-output" aria-label="当前组件状态"></pre><dl><div><dt>五档选择</dt><dd>原生单选控件，支持键盘方向键。</dd></div><div><dt>状态接入</dt><dd>回调返回档位，由业务层映射模型参数。</dd></div><div><dt>失败提示</dt><dd>示例横幅；持久化与重试由业务层实现。</dd></div></dl></aside>
+    </div>
+    <section class="motion-section" aria-labelledby="motion-heading"><div class="section-caption"><h2 id="motion-heading">02 / Motion studies</h2><button class="cds2-button" id="replay-motion">↻ 重播全部</button></div><div class="motion-grid"><article class="motion-card"><div class="motion-stage"><button class="cds2-button cds2-pill" id="pill-trigger">轻点试试 ↗</button></div><h3>胶囊回弹</h3><p>关键帧最高缩放 1.32×</p></article><article class="motion-card"><div class="motion-stage"><div class="cds2-cascade" id="cascade"><span class="cds2-chip" style="--i:0">Design</span><span class="cds2-chip" style="--i:1">Build</span><span class="cds2-chip" style="--i:2">Review</span></div></div><h3>顺序入场</h3><p>45 ms 交错 · 240 ms 显现</p></article><article class="motion-card"><div class="motion-stage"><div class="skeleton-wrap" id="skeleton"><div class="cds2-skeleton"></div><div class="cds2-skeleton" style="width:78%"></div><div class="cds2-skeleton" style="width:52%"></div></div></div><h3>倾斜扫光</h3><p>105° 渐变 · 单次播放三轮</p></article></div><p class="motion-footnote">所有动效尊重系统的“减少动态效果”偏好。</p></section>
+    <footer class="preview-footer"><span>参考上游 f504349 · 参数为本项目实现值</span><a href="README.md">查看组件接入说明 ↗</a></footer>
+  </main>
+  <script src="../../interaction-examples.js"></script><script src="components.js"></script><script src="preview.js"></script>
+</body></html>

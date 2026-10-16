@@ -91,5 +91,22 @@
     "provenance": "user_approved_implementation",
     "source": "https://claude-storybook.bystanderss.chatgpt.site/",
     "implementation": "examples/claude-chat/index.html"
+  },
+  {
+    "title": "CDS 2.0 可选组件扩展",
+    "upstream_summary": "新增 ModelSelectorEffort、ChatComposerChin、CdsMotionEngine 以及工作台演示；离线存储与多窗口不等于独立组件已实现",
+    "adopted": "新增独立 .cds2-reference 模块与 ClaudeCDS2 API；五档能力约束、菜单焦点、12px 输入框、36/44px 操作命中区与真实 CSS 动画；保留原聊天页视觉。失败横幅显式标注演示，不声称离线持久化。",
+    "provenance": "implementation_recommendation",
+    "source": "https://github.com/Caho1/open-claude-ui/tree/f504349419118a32804ce3a7fae74593070bf945",
+    "implementation": "examples/cds2-components/index.html"
+  },
+  {
+    "title": "开源底稿衍生英文标题字体",
+    "provenance": "user_requested_prototype",
+    "adopted": "Afternoon Display 0.1 基于Newsreader真实修改轮廓、advance和kerning；仅应用欢迎标题。正文保持Inter。浅色canvas/sidebar/ink等按用户截图取样。",
+    "source": "https://github.com/google/fonts/tree/main/ofl/newsreader",
+    "implementation": "examples/claude-chat/index.html",
+    "font_parameters": "font-sources/afternoon-display.json",
+    "review_status": "prototype for user visual review; not an exact or official font"
   }
 ]

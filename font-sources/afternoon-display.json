@@ -1,0 +1,25 @@
+{
+  "family": "Afternoon Display",
+  "version": "0.1",
+  "source": "newsreader.ttf",
+  "source_url": "https://github.com/google/fonts/blob/main/ofl/newsreader/Newsreader%5Bopsz%2Cwght%5D.ttf",
+  "axes": {"wght": 400, "opsz": 40},
+  "width_scale": 1.04,
+  "lowercase_height_scale": 1.035,
+  "shoulder_y": 1000,
+  "upper_height_scale": 0.92,
+  "descender_scale": 0.9,
+  "glyph_width_multipliers": {"e": 1.03, "o": 1.03, "g": 1.02, "u": 1.05, "n": 1.015, "r": 0.92},
+  "advance_additions": {"g": 24, "f": -8},
+  "advance_tracking": -22,
+  "word_space_units": 320,
+  "pair_adjustments": {"Af": 80, "ft": -170, "rn": -8, "oo": -8, "gu": 12},
+  "intended_sizes_css_px": [28, 40, 64],
+  "scope": "Single regular display style. Latin title prototype, not a replica or a complete UI font family.",
+  "reference_observations": {
+    "sample": "Afternoon, gugu",
+    "screenshot_ink_bounds_px": [566, 75],
+    "assumed_render_size_px": 80,
+    "note": "Reference raster measurements guide proportions; they do not identify the original font or establish pixel equivalence."
+  }
+}

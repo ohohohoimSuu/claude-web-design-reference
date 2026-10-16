@@ -1,0 +1,66 @@
+{
+  "family": "Afternoon Display",
+  "version": "0.1",
+  "source_sha256": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1",
+  "source_version": "Newsreader 1.003",
+  "axes": {
+    "wght": 400,
+    "opsz": 40
+  },
+  "glyph_count": 453,
+  "encoded_characters": 398,
+  "ascii_printable_coverage": true,
+  "modified_glyph_metrics": {
+    "e": {
+      "x_scale": 1.0712000000000002,
+      "advance_before": 923,
+      "advance_after": 967
+    },
+    "g": {
+      "x_scale": 1.0608,
+      "advance_before": 977,
+      "advance_after": 1038
+    },
+    "n": {
+      "x_scale": 1.0555999999999999,
+      "advance_before": 1135,
+      "advance_after": 1176
+    },
+    "o": {
+      "x_scale": 1.0712000000000002,
+      "advance_before": 1062,
+      "advance_after": 1116
+    },
+    "r": {
+      "x_scale": 0.9568000000000001,
+      "advance_before": 773,
+      "advance_after": 718
+    },
+    "u": {
+      "x_scale": 1.092,
+      "advance_before": 1076,
+      "advance_after": 1153
+    }
+  },
+  "pair_adjustments": {
+    "Af": 80,
+    "ft": -170,
+    "rn": -8,
+    "oo": -8,
+    "gu": 12
+  },
+  "outputs": {
+    "afternoon-display-regular.ttf": {
+      "bytes": 105524,
+      "sha256": "f96d9573123eac23a2aa71046b7ace4f7ebbf89d99c41be8a8b327c322dd0f50"
+    },
+    "afternoon-display-regular.woff2": {
+      "bytes": 33700,
+      "sha256": "d04ef790915045ad88fee6e3abddb1cd5f08f170b01bf2d1c5f9769bb6149660"
+    },
+    "newsreader-study.woff2": {
+      "bytes": 29464,
+      "sha256": "a209c382661ed6a32b798e4ffeb63675a53db300da19173ec32bbd26c414dc68"
+    }
+  }
+}

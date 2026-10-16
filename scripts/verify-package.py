@@ -29,13 +29,21 @@ def local_reference(path, reference):
 
 
 def main():
-    for path in [ROOT/'README.md', ROOT/'AGENTS.md', DEMO/'README.md']:
+    for path in [ROOT/'README.md', ROOT/'AGENTS.md', DEMO/'README.md',build.CDS2/'README.md']:
         text = path.read_text()
         for ref in re.findall(r'\]\(([^)]+)\)|(?:src|href)="([^"]+)"', text):
             local_reference(path, ref[0] or ref[1])
     index = DEMO/'index.html'
     for ref in re.findall(r'(?:src|href)="([^"]+)"', index.read_text()):
         local_reference(index, ref)
+    for ref in re.findall(r'(?:src|href)="([^"]+)"', (build.CDS2/'index.html').read_text()):
+        local_reference(build.CDS2/'index.html', ref)
+    cds2_portable = (build.CDS2/'standalone.html').read_text()
+    check(cds2_portable == build.cds2_standalone(), 'CDS 2.0 standalone is stale')
+    check(not re.search(r'<script[^>]+src=|<link[^>]+rel="stylesheet"', cds2_portable),
+          'CDS 2.0 standalone has external script/style dependencies')
+    check(len(re.findall('data:font/(?:ttf|woff2);base64,', cds2_portable)) == 4, 'CDS 2.0 fonts not embedded')
+    check((DEMO/'font-study-standalone.html').read_text() == build.font_study_standalone(), 'font study is stale')
     fonts = DEMO/'assets/fonts.css'
     for ref in re.findall(r"url\('([^']+)'\)", fonts.read_text()):
         local_reference(fonts, ref)
@@ -52,6 +60,13 @@ def main():
     for encoded, weight in zip(embedded, (400,500,600)):
         check(base64.b64decode(encoded) == (DEMO/f'assets/fonts/inter-{weight}.ttf').read_bytes(),
               f'embedded font {weight} mismatch')
+    title_font = (DEMO/'assets/fonts/afternoon-display-regular.woff2').read_bytes()
+    check(title_font.startswith(b'wOF2'), 'title font is not WOFF2')
+    title_embeds = re.findall(r"data:font/woff2;base64,([^\x27]+)",portable)
+    check(len(title_embeds) == 1 and base64.b64decode(title_embeds[0]) == title_font,'embedded title font mismatch')
+    guide_title = re.findall(r"data:font/woff2;base64,([^\x27]+)",build.GUIDE.read_text())
+    check(len(guide_title) == 1 and base64.b64decode(guide_title[0]) == title_font,'Agent guide must embed the actual title font')
+    check('The Newsreader Project Authors' in portable,'title font license missing')
     check('SIL OPEN FONT LICENSE' in portable, 'portable font license is missing')
     for screenshot in ('home','dark','mobile'):
         check((ROOT/f'assets/readme-chat-{screenshot}.jpg').read_bytes().startswith(b'\xff\xd8'),
@@ -71,9 +86,11 @@ def main():
             text = (ROOT/name).read_text()
             check('claimToken=' not in text and '/Users/suu/' not in text,
                   f'private deployment/local-machine data in {name}')
-    for path in [ROOT/'interaction-examples.js',DEMO/'assets/chat.js',DEMO/'assets/interactions.js']:
+    for path in [ROOT/'interaction-examples.js',DEMO/'assets/chat.js',DEMO/'assets/interactions.js',
+                 build.CDS2/'components.js',build.CDS2/'preview.js']:
         subprocess.run(['node','--check',str(path)],check=True)
     subprocess.run(['node','interaction-tests.cjs'],cwd=ROOT,check=True)
+    subprocess.run(['node','examples/cds2-components/components-tests.cjs'],cwd=ROOT,check=True)
     print(f'PASS: links, assets, fonts, generated distributions, {len(actual)} hashes, JS syntax and shared interaction tests.')
 
 

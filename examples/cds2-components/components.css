@@ -1,0 +1,80 @@
+/* Opt-in scope. Reference implementation values, not verified official tokens. */
+.cds2-reference {
+  --cds2-canvas:#fcfcfb; --cds2-surface:#fff; --cds2-subtle:#f4f4f1;
+  --cds2-ink:#262624; --cds2-muted:#74736d; --cds2-border:rgba(31,30,29,.13);
+  --cds2-clay:#b65b3e; --cds2-accent-soft:#f6ede7; --cds2-warning:#825b15;
+  --cds2-warning-bg:#fcf5e8; --cds2-shadow:0 12px 32px #00000012;
+  color:var(--cds2-ink); font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;
+  font-size:14px; line-height:1.6; color-scheme:light;
+}
+.cds2-reference[data-theme=dark] {
+  --cds2-canvas:#1b1b19; --cds2-surface:#242422; --cds2-subtle:#2e2e2b;
+  --cds2-ink:#eeede8; --cds2-muted:#aaa89f; --cds2-border:rgba(255,255,245,.15);
+  --cds2-clay:#df9c82; --cds2-accent-soft:#3b2b23; --cds2-warning:#e1bd75;
+  --cds2-warning-bg:#342d20; --cds2-shadow:0 12px 32px #0005; color-scheme:dark;
+}
+.cds2-reference *, .cds2-reference *::before, .cds2-reference *::after {box-sizing:border-box}
+.cds2-reference [hidden] {display:none!important}
+.cds2-reference button,.cds2-reference textarea,.cds2-reference select {font:inherit}
+.cds2-reference button {cursor:pointer}
+.cds2-reference button:disabled {opacity:.45;cursor:default}
+.cds2-reference :focus-visible {outline:2px solid var(--cds2-clay);outline-offset:3px}
+.cds2-reference .cds2-button,.cds2-reference .cds2-effort>summary {
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;
+  padding:6px 11px;border:0;border-radius:7px;background:transparent;color:var(--cds2-ink);
+  font-size:12px;line-height:20px;transition:background-color 120ms ease-out;white-space:nowrap;
+}
+.cds2-reference .cds2-button:hover:not(:disabled),.cds2-reference .cds2-effort>summary:hover {background:var(--cds2-subtle)}
+.cds2-reference .cds2-button--outline {box-shadow:inset 0 0 0 1px var(--cds2-border)}
+.cds2-reference .cds2-button--solid {background:var(--cds2-ink);color:var(--cds2-surface)}
+.cds2-reference .cds2-button--solid:hover:not(:disabled) {background:var(--cds2-ink);filter:brightness(.9)}
+.cds2-reference .cds2-composer {border:1px solid var(--cds2-border);border-radius:12px;background:var(--cds2-surface);box-shadow:0 3px 12px #00000004;min-width:0}
+.cds2-reference .cds2-composer textarea {width:100%;min-height:104px;max-height:240px;display:block;resize:none;border:0;outline:0;padding:20px;background:transparent;color:inherit;font-size:15px;line-height:1.6;border-radius:12px}
+.cds2-reference .cds2-composer textarea::placeholder {color:var(--cds2-muted)}
+.cds2-reference .cds2-composer:focus-within {border-color:var(--cds2-muted)}
+.cds2-reference .cds2-chin {display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-top:1px solid var(--cds2-border);min-height:45px;flex-wrap:wrap}
+.cds2-reference .cds2-chin-group {display:flex;align-items:center;gap:4px;min-width:0;flex-wrap:wrap}
+.cds2-reference .cds2-send {width:32px;min-height:32px;padding:0;border-radius:7px;font-size:20px}
+.cds2-reference .cds2-effort {position:relative}
+.cds2-reference .cds2-effort>summary {list-style:none;cursor:pointer;user-select:none}
+.cds2-reference .cds2-effort>summary::-webkit-details-marker {display:none}
+.cds2-reference .cds2-effort>summary::after {content:'⌄';color:var(--cds2-muted);margin-left:3px}
+.cds2-reference .cds2-effort-panel {position:absolute;z-index:20;top:calc(100% + 8px);left:0;width:min(286px,calc(100vw - 56px));overflow:auto;overscroll-behavior:contain;padding:10px;border:1px solid var(--cds2-border);border-radius:12px;background:var(--cds2-surface);box-shadow:var(--cds2-shadow)}
+.cds2-reference .cds2-effort[data-placement=top] .cds2-effort-panel {top:auto;bottom:calc(100% + 8px)}
+.cds2-reference .cds2-effort-panel h3 {font-size:12px;margin:4px 8px 8px;color:var(--cds2-muted);font-weight:500}
+.cds2-reference .cds2-effort-options {border:0;margin:0;padding:0;min-width:0}
+.cds2-reference .cds2-effort-option {display:flex;align-items:center;gap:11px;padding:9px 8px;border-radius:7px;cursor:pointer}
+.cds2-reference .cds2-effort-option:hover {background:var(--cds2-subtle)}
+.cds2-reference .cds2-effort-option:has(input:checked) {background:var(--cds2-accent-soft)}
+.cds2-reference .cds2-effort-option input {margin:0;accent-color:var(--cds2-clay)}
+.cds2-reference .cds2-effort-option strong {display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500}
+.cds2-reference .cds2-effort-option small {font-size:10px;font-weight:400;color:var(--cds2-muted)}
+.cds2-reference .cds2-effort-option span>span {display:block;font-size:11px;color:var(--cds2-muted)}
+.cds2-reference .cds2-effort-options:disabled {opacity:.55}
+.cds2-reference .cds2-effort-note {font-size:11px;margin:10px 4px;color:var(--cds2-muted);white-space:normal}
+.cds2-reference .cds2-effort-note[data-warning=true] {padding:8px;border-radius:6px;color:var(--cds2-warning);background:var(--cds2-warning-bg)}
+.cds2-reference .cds2-queue {display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 12px 10px;padding:8px 10px;border-radius:7px;background:var(--cds2-warning-bg);color:var(--cds2-warning);font-size:12px}
+.cds2-reference .cds2-queue button {color:inherit}
+.cds2-reference .cds2-attachments {display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px 0}
+.cds2-reference .cds2-chip {display:inline-flex;align-items:center;gap:6px;border-radius:6px;background:var(--cds2-subtle);padding:5px 9px;font-size:11px}
+.cds2-reference .cds2-chip button {border:0;background:transparent;color:inherit;min-width:24px;min-height:24px}
+.cds2-reference .cds2-pill {border-radius:999px;background:var(--cds2-accent-soft);color:var(--cds2-clay);transform-origin:center}
+.cds2-reference .cds2-pill.is-playing {animation:cds2-pill-pop 360ms cubic-bezier(.16,1,.3,1)}
+.cds2-reference .cds2-cascade {display:flex;gap:6px;flex-wrap:wrap}
+.cds2-reference .cds2-cascade.is-playing>* {animation:cds2-chip-enter 240ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*45ms)}
+.cds2-reference .cds2-skeleton {height:10px;border-radius:4px;background:var(--cds2-subtle);overflow:hidden;position:relative;margin:10px 0}
+.cds2-reference .cds2-skeleton::after {content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(105deg,transparent 30%,var(--cds2-border) 50%,transparent 70%)}
+.cds2-reference .is-playing .cds2-skeleton::after {animation:cds2-sweep 1400ms cubic-bezier(.4,0,.2,1) 3}
+@keyframes cds2-pill-pop {0%,100%{transform:scale(1)}45%{transform:scale(1.32)}}
+@keyframes cds2-chip-enter {from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cds2-sweep {to{transform:translateX(100%)}}
+@media(max-width:600px),(pointer:coarse) {
+  .cds2-reference .cds2-button,.cds2-reference .cds2-effort>summary {min-height:44px}
+  .cds2-reference .cds2-send {min-width:44px}
+  .cds2-reference .cds2-composer textarea {font-size:16px;padding:16px}
+  .cds2-reference .cds2-chin {padding:6px 8px;gap:4px}
+  .cds2-reference .cds2-chip button {min-height:44px;min-width:44px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .cds2-reference *, .cds2-reference *::before,.cds2-reference *::after {animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}

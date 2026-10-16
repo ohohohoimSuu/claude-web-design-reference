@@ -2,9 +2,15 @@
 
 **一套带完整聊天实例的 Claude 风格网页设计参考。下载就能看，复制就能改，也可以直接交给 Agent。**
 
-v3 将实际运行并经使用者认可的聊天界面作为默认起点：暖白画布、灰米色侧栏、Inter 字体、轻边框、黏土橙发送按钮，以及完整的消息与输入操作。配色、尺寸、源码、字体和接手说明都在仓库里。
+v3.2 在既有聊天实例上加入 Afternoon Display 英文标题字体试验：以开源 Newsreader 为底稿，实际修改字形和间距，并使用截图取样的中性白配色。导航与正文继续使用 Inter。完整聊天交互、字体、修改参数和接手说明都在仓库里。
 
 **完整聊天实例 · 浅色 / 深色 · 手机抽屉导航 · 本地字体 · 无 npm 依赖 · Agent 单文件指南**
+
+**3.1 组件更新（2026-10-16）**：新增 [CDS 2.0 交互参考](./examples/cds2-components/index.html) 与 [离线单文件预览](./examples/cds2-components/standalone.html)：五档推理选择、独立输入底栏、失败状态提示与 CSS 动效。组件独立保留；聊天首页现已接入 v3.2 标题字体试验。[接入说明](./examples/cds2-components/README.md)
+
+**3.2 标题字体试验**：[聊天预览](./examples/claude-chat/standalone.html) · [三组字体试排](./examples/claude-chat/font-study-standalone.html) · [下载 WOFF2](./examples/claude-chat/assets/fonts/afternoon-display-regular.woff2) · [下载 TTF](./examples/claude-chat/assets/fonts/afternoon-display-regular.ttf) · [字体修改与重建说明](./font-sources/README.md)
+
+Afternoon Display 0.1 是单个常规字重，适用于英文标题；398 个编码字符，覆盖基础英文、数字与常用标点，不包含中文。它是基于 Newsreader 的 OFL 衍生字体，不是 Claude 原版字体。欢迎标题已改为可直接比较的 `Afternoon, gugu`，正文与导航保持既有字体。
 
 [看效果](#实际效果) · [运行实例](#下载运行) · [交给 Agent](#交给-agent) · [按需取用](#按需取用) · [修改与验证](#修改与验证)
 
@@ -16,18 +22,18 @@ v3 将实际运行并经使用者认可的聊天界面作为默认起点：暖�
 
 ![完整聊天实例的浅色首页](./assets/readme-chat-home.jpg)
 
-**深色对话**：用户消息、助手正文、代码块、消息操作和底部输入框。
+**深色首页**：同一标题字体在深色画布上的效果；正文与聊天操作继续沿用既有实例。
 
-![完整聊天实例的深色对话页](./assets/readme-chat-dark.jpg)
+![标题字体试验版的深色首页](./assets/readme-chat-dark.jpg)
 
 <details>
-<summary>查看 390px 手机聊天效果</summary>
+<summary>查看 390px 手机首页效果</summary>
 
-<img src="./assets/readme-chat-mobile.jpg" alt="390px 手机聊天布局" width="390">
+<img src="./assets/readme-chat-mobile.jpg" alt="390px 手机首页与标题字体" width="390">
 
 </details>
 
-截图来自本项目实例，状态可能包含演示交互；不是 Claude 官方产品截图。仓库不依赖有时限的临时预览链接。
+截图来自 v3.2 本项目实例，状态可能包含演示交互；不是 Claude 官方产品截图。仓库不依赖有时限的临时预览链接。
 
 ## 现在能用什么
 
@@ -46,7 +52,7 @@ v3 将实际运行并经使用者认可的聊天界面作为默认起点：暖�
 
 ### 只想直接看效果
 
-打开 **[单文件实例 standalone.html](./examples/claude-chat/standalone.html)**，选择 **Download raw file** 下载后用浏览器打开。样式、脚本、图标和 Inter 字体已经内嵌，断网也能显示。
+打开 **[单文件实例 standalone.html](./examples/claude-chat/standalone.html)**，选择 **Download raw file** 下载后用浏览器打开。样式、脚本、图标、Inter 与 Afternoon Display 字体已经内嵌，断网也能显示。
 
 浏览器对 `file://` 的复制和持久化支持不一致；需要完整测试这些操作时，用下面的本地服务器方式。
 
@@ -66,7 +72,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 **能读取仓库的 Agent**：先读 [AGENTS.md](./AGENTS.md)。它会找到已认可的实例、准确的文件职责、两套参考的适用范围和验证方法，不依赖某一家 Agent 的专用接口。
 
-**只能发一个附件时**：下载 **[Claude网页设计参考_v3_Agent.md](./Claude网页设计参考_v3_Agent.md)**。它先解释如何使用，再给出设计规则、接入位置和完整的文本源码，可独立重建界面。二进制字体不塞进文本上下文；要与截图使用同一套 Inter，复制示例里的 `assets/fonts/`。没有字体文件时可用系统回退。
+**只能发一个附件时**：下载 **[Claude网页设计参考_v3_Agent.md](./Claude网页设计参考_v3_Agent.md)**。它先解释如何使用，再给出设计规则、接入位置和完整的文本源码，可独立重建界面。约 34 KB 的 Afternoon Display WOFF2 已内嵌在指南的 fonts.css 代码块中，单文件也能还原标题。Inter 仍通过示例里的 `assets/fonts/` 提供；缺少它时正文使用系统回退。
 
 可以直接复制这段任务说明：
 
@@ -94,23 +100,24 @@ python3 -m http.server 8080 --bind 127.0.0.1
 | 在现有页面中使用通用表单组件 | [v2 CSS](./claude-reference.css)、[交互手册](./Claude网页设计参考_v2.html) |
 | 复用输入、弹窗、滚动跟随等工具 | [interaction-examples.js](./interaction-examples.js)、[API 说明](./INTERACTION_API.txt) |
 | 查看原始 Figma 标注和整合取舍 | [tokens.json](./tokens.json)、[INTEGRATION_DECISIONS.json](./INTEGRATION_DECISIONS.json) |
+| 复用新版输入与推理控件 | [CDS 2.0 组件模块](./examples/cds2-components/README.md)、[参数预览](./examples/cds2-components/index.html) |
 
-**两套参考有明确边界。** v3 聊天实例是本次认可的视觉起点，采用 Inter、256px 桌面侧栏、672px 首页输入框和黏土橙图标发送按钮；v2 保留通用 `.cr-*` 组件、近黑文字主按钮、两档密度，以及原始 Figma 颜色登记。它们共用交互工具，但布局与视觉参数不能互相覆盖。v3 实例没有密度切换。
+**两套参考有明确边界。** v3 聊天实例是本次认可的视觉起点，采用 Inter 正文、Afternoon Display 标题、256px 桌面侧栏、672px 首页输入框和黏土橙图标发送按钮；v2 保留通用 `.cr-*` 组件、近黑文字主按钮、两档密度，以及原始 Figma 颜色登记。它们共用交互工具，但布局与视觉参数不能互相覆盖。v3 实例没有密度切换。
 
 ## 设计参数速览
 
 | 项目 | 聊天实例采用值 |
 | --- | --- |
-| 浅色表面 | 页面 `#faf9f6`，侧栏 `#f0efea`，输入框 `#ffffff` |
+| 浅色表面 | 页面 `#fcfcfb`，侧栏 `#fbfaf9`，输入框 `#ffffff` |
 | 深色表面 | 页面 `#262624`，侧栏 `#1f1f1d`，输入框 `#30302e` |
-| 强调色 | `#d97757`，用于小面积符号和图标发送按钮 |
-| 字体 | 本地 Inter 400 / 500 / 600；中文使用系统回退 |
+| 强调色 | `#cc7c5e`，用于小面积符号和图标发送按钮 |
+| 字体 | 本地 Inter 400 / 500 / 600；英文标题 Afternoon Display 400；中文使用系统回退 |
 | 布局 | 桌面侧栏 256px；首页输入框最大 672px；会话内容宽度最大 704px |
-| 排版 | 首页标题 32px；助手正文 15px / 1.8；手机输入 16px |
+| 排版 | 首页英文标题 40px，手机 32px；助手正文 15px / 1.8；手机输入 16px |
 | 圆角 | 输入框 20px；用户消息 18px；代码块 11px；弹窗 14px |
 | 手机布局 | 760px 以下使用侧栏抽屉；390px 布局已有预览验证 |
 
-这些是**本实例的实现值**，不等于 Claude 的完整官方规范。实例保留了紧凑控件；它不继承 v2 的“触控目标至少 44px”验证结论。实际产品应按目标设备补充触控、键盘和对比度验收。
+这些是**本实例的实现值**；浅色主题取自用户截图，标题字体是待视觉评估的试验版，不等于 Claude 的完整官方规范。实例保留了紧凑控件；它不继承 v2 的“触控目标至少 44px”验证结论。实际产品应按目标设备补充触控、键盘和对比度验收。
 
 ## 修改与验证
 
@@ -130,6 +137,7 @@ python3 scripts/verify-package.py
 - [用户提供的 CDS Storybook](https://claude-storybook.bystanderss.chatgpt.site/)：v3 聊天实例的视觉参照。
 - [MCP Apps for Claude Community UI kit](https://www.figma.com/design/RBi8VghMgGaJoJuNCbe2s6/MCP-Apps-for-Claude--Community-?node-id=0-1)：保留在 v2 中的颜色、排版和组件标注参考。
 - [Caho1/open-claude-ui](https://github.com/Caho1/open-claude-ui/tree/f4947c62a459f6413ed44b289a8d495962add1a2)：组件结构与交互模式参考，固定提交 `f4947c6`；[上游许可](./UPSTREAM_LICENSE.txt)。
+- [Newsreader](https://github.com/productiontype/Newsreader)：Afternoon Display 的开源底稿；[原版权与 OFL](./examples/claude-chat/assets/fonts/Afternoon-Display-OFL.txt)，[修改说明](./font-sources/README.md)。
 - [Inter](https://github.com/rsms/inter)：本实例附带的开源字体；[SIL Open Font License](./examples/claude-chat/assets/fonts/OFL.txt)。
 
 本项目是非官方设计参考。Claude 名称与示意符号用于说明参考对象，不代表 Anthropic 授权或合作。未附带 Anthropic 专有字体、官方 Logo 文件或生产样式源码。第三方许可只覆盖对应材料，不能自动套到 Figma 截图和整份参考。

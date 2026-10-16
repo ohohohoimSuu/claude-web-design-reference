@@ -1,10 +1,12 @@
-# Claude 网页设计参考 v3 · 直接交给 Agent
+# Claude 网页设计参考 v3.2 · 直接交给 Agent
+
+3.1 扩展：文末补充独立 CDS 2.0 组件及完整文本源码，包含五档推理选择、输入底栏与 CSS 动效。聊天交互仍为既有起点；v3.2 已按用户截图更新浅色主题，并接入 Afternoon Display 标题试验字体。没有真实模型调用或离线队列。
 
 这份文件用来把一个已认可的 Claude 风格聊天界面交给后续 Agent。你可以把它与自己的网页需求一起发送。Agent 能按末尾的文件路径还原完整文本源码，再改成你的产品。
 
 你会得到：完整聊天页面、浅深主题、手机抽屉导航、会话管理、输入与消息交互，以及明确的样式和业务接入位置。默认使用本地预设回复，不需要 API Key。
 
-如果你能访问仓库，直接使用 `examples/claude-chat/` 更方便。若你只想打开看效果，下载同目录的 `standalone.html`；它已经内嵌字体、样式与脚本。这个文本指南不内嵌字体二进制，缺少字体文件时使用系统回退，不能保证与 Inter 截图的字形完全相同。
+如果你能访问仓库，直接使用 `examples/claude-chat/` 更方便。若你只想打开看效果，下载同目录的 `standalone.html`；它已经内嵌字体、样式与脚本。这个文本指南内嵌约 34 KB 的 Afternoon Display WOFF2（位于 fonts.css 的 data URL），单文件即可恢复英文标题。Inter 二进制仍单独附带；缺少它时正文使用系统回退。
 
 ## 可以直接发送的需求
 
@@ -31,24 +33,24 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 打开 `http://127.0.0.1:8080/examples/claude-chat/`。无 npm 依赖。`index.html`、`chat.css` 和 `chat.js` 为页面实现；`reference.css` 与 `interactions.js` 为随包共享依赖。后文还附了共享 API 的详细说明。
 
-字体完整包位于 `examples/claude-chat/assets/fonts/`，包含 Inter 400/500/600 和 OFL 许可。只拿到本指南时，不要伪造字体文件：将 `fonts.css` 留空或移除其引用，保留 `chat.css` 中的系统回退栈即可运行；交付时说明采用回退字体。如从完整仓库复制字体，保留 OFL。
+字体完整包位于 `examples/claude-chat/assets/fonts/`，包含 Inter 400/500/600 和 OFL 许可。只拿到本指南时，不要伪造字体文件：保留 `fonts.css` 中内嵌的 Afternoon Display 声明；仅移除缺失的三个 Inter @font-face 声明，让正文使用系统回退；交付时说明正文回退。如从完整仓库复制字体，保留 OFL。
 
 ### 2. 视觉基线
 
 | 维度 | 实例采用值与用途 |
 | --- | --- |
-| 浅色 | 页面 #faf9f6，侧栏 #f0efea，输入表面 #ffffff，正文 #262624，次要文字 #66645f |
+| 浅色 | 页面 #fcfcfb，侧栏 #fbfaf9，输入表面 #ffffff，正文 #0b0b0b，次要文字 #52514e，选中行 #edece8 |
 | 深色 | 页面 #262624，侧栏 #1f1f1d，输入表面 #30302e，正文 #e9e8e2，次要文字 #b4b2aa |
-| 强调 | #d97757，小面积符号和图标发送动作；不要扩展到所有橙底白字文字按钮 |
-| 字体 | Inter 400/500/600；中文回退 PingFang SC / Microsoft YaHei；代码用系统等宽 |
-| 文字 | 桌面首页标题32；助手正文15/1.8；用户正文14；桌面输入15/21；手机输入16/1.5 |
+| 强调 | #cc7c5e，小面积符号和图标发送动作；不要扩展到所有橙底白字文字按钮 |
+| 字体 | 英文欢迎标题 Afternoon Display 400，正文 Inter 400/500/600；中文回退 PingFang SC / Microsoft YaHei；代码用系统等宽 |
+| 文字 | 桌面首页标题40/1.2（中屏36、手机32）；助手正文15/1.8；用户正文14；桌面输入15/21；手机输入16/1.5 |
 | 布局 | 桌面侧栏256；1050以下侧栏232；760以下抽屉256；首页外列736含两侧32留白，输入区域672；会话外列784含两侧40留白，正文704 |
 | 圆角 | 输入20、消息18、代码11、popover12、dialog14；具体控件以源码为准 |
 | 空间 | 控件紧凑、阅读区宽松；保留空白，使用细边框和轻阴影；不要把页面每个区块都装进卡片 |
 
 主题通过 `html[data-theme]` 切换。控制页面宽度和组件尺寸时查实际 CSS，不把桌面最大宽度误认为所有屏幕的固定宽度。
 
-来源：本实例参考用户给的 https://claude-storybook.bystanderss.chatgpt.site/ 并由使用者认可；这些值是实现基线，不是 Anthropic 官方设计参数。原始 Figma 37 色与 8 个待核对项继续保存在 v2 的 `tokens.json`，不要覆盖或冒充已确认值。
+来源：本交互实例最初参考用户给的 https://claude-storybook.bystanderss.chatgpt.site/ 并获使用者认可；当前标题字体与浅色主题按2026-10-16截图迭代，字体仍是试验版，不是 Anthropic 官方设计参数或原版字体。原始 Figma 37 色与 8 个待核对项继续保存在 v2 的 `tokens.json`，不要覆盖或冒充已确认值。
 
 ### 3. 可以改哪里
 
@@ -99,3 +101,7 @@ python3 scripts/verify-package.py
 视觉参照：用户给的 CDS Storybook；v2参考来源为MCP Apps for Claude Community UI kit和Caho1/open-claude-ui固定提交f4947c62a459f6413ed44b289a8d495962add1a2。交互工具由本项目实现。Inter按SIL OFL提供；上游许可附于后文。
 
 这是非官方参考，不代表Anthropic授权或合作。Claude名称和示意符号用于辨认参考风格；实际产品使用自己的品牌。没有Anthropic专有字体、官方Logo文件或生产样式源码。
+
+### 7. 本次标题字体
+
+Afternoon Display 0.1 基于 Newsreader 1.003 的常规字重/40pt光学实例，实际修改轮廓、advance和字偶间距，覆盖398个编码字符。仅用于英文标题，正文与导航仍为Inter；无中文轮廓、粗体或斜体。CSS使用font-synthesis:none，保留原版权与OFL。文末附有修改说明，完整仓库还包含底稿、参数JSON、构建与字体验证脚本。标题文字在chat.js的home()中修改，默认Afternoon, gugu。

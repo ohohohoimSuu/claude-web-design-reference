@@ -1,10 +1,10 @@
 # 完整聊天实例
 
-这是使用者认可的 v3 视觉起点。`index.html` 和 `assets/` 可以整目录复制到任意静态项目；没有 npm 依赖、服务端或 API Key。
+这是既有 v3 聊天实例的 v3.2 标题字体试验版。`index.html` 和 `assets/` 可以整目录复制到任意静态项目；没有 npm 依赖、服务端或 API Key。
 
 ## 运行
 
-在本目录执行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。也可以下载 `standalone.html` 后直接打开，字体和所有页面资源已内嵌。复制与持久化行为建议在 localhost / HTTPS 检查。
+在本目录执行 `python3 -m http.server 8080 --bind 127.0.0.1`，打开 http://127.0.0.1:8080 。也可以下载 `standalone.html` 后直接打开，Inter、Afternoon Display 和所有页面资源已内嵌。复制与持久化行为建议在 localhost / HTTPS 检查。
 
 ## 文件职责
 
@@ -38,3 +38,9 @@ python3 scripts/verify-package.py
 ```
 
 共享交互改根目录 `interaction-examples.js`，不要只改本目录副本。完整接手规则见根目录 [AGENTS.md](../../AGENTS.md)，实际验证范围见 [VALIDATION.md](./VALIDATION.md)。
+
+## 标题字体试验
+
+欢迎语现使用Afternoon Display 0.1（Newsreader开源衍生字体），40px常规样式；正文与导航仍为Inter。浅色主题取自用户截图。可打开[字体试排](./font-study.html)或[离线试排](./font-study-standalone.html)，输入自己的英文句子、切换28/40/64px和浅深主题。
+
+字形、字距的修改参数与重建方法见[字体说明](../../font-sources/README.md)。网页使用assets/fonts/afternoon-display-regular.woff2，另附TTF及OFL。指南仅接收一个文件时，标题WOFF2已内嵌到代码块；Inter缺失时正文回退。
